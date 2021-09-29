@@ -1,4 +1,4 @@
-# Here's my title! :D
+# Here's my title
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 
