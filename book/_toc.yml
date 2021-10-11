@@ -7,3 +7,4 @@ chapters:
 - file: markdown
 - file: notebooks
 - file: mymarkdownfile
+- file: Naive_Clustering_of_Total_Dataset
