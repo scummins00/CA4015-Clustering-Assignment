@@ -1,6 +1,27 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# # Clustering of Total Dataset
+# In the follownig Jupyter Notebook, we will be clustering and performing some analysis on the total dataset of 617 healthy participants performing the __*owa Gambling Task*__ (IGT). The clustering algorithm we will be using is the **K-Means Algorithm**. In the following analysis, we will not be taking varying testing conditions between studies (such as *Reward Scheme* and *number of attempts*) into consideration.
+# 
+# We will perform the following tasks in this Notebook:
+# 
+# 1. Analysis Setup
+# 2. Understand Data Distribution
+#     * Histogram
+#     * QQPlot
+# 3. Clustering
+#     * Finding the Elbow Point (Inertia Reduction)
+#     * K-Means Clustering
+# 4. Comparison Between Contrasting Clusters
+#     * Time-Series Analysis
+# 5. Comparison of All Clusters
+#     * Boxplot
+# ---
+# In our next Notebook, we will attempt to employ a **Federated Learning** (FL) approach to clustering. FL is a deep-learning technique not usually associated with clustering. However, we will attempt to use some of the basic principles of FL when clustering.
+# 
+# **It's time to focus on this Notebook however, so let's begin with the setup:**
+
 # # Initial Setup
 
 # ## Importing Packages
@@ -275,6 +296,8 @@ plt.show()
 # Clustering participants based on the decks they chose from is a difficult task. Instead, a **time-series chart** may reveal trends in the data more easily. A time-series chart will reveal to us the decision making process of users. We expect to see choices steadily lean towards the **more favourable decks of C and D** in situations where the participant performed well.
 # 
 # As we are viewing the polar extremes of the data, we should expect to see contrasting strategies employed by subjects.
+# 
+# **Note: Re-running the cluster algorithm above will cause the clusters to change colour and no longer be associated with the same labels**
 
 # ## Pre-Processing
 

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Initial Setup &#8212; Clustering Assignment</title>
+    <title>Clustering of Total Dataset &#8212; Clustering Assignment</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -53,7 +53,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Here’s my title" href="mymarkdownfile.html" />
+    <link rel="prev" title="CA4015 Clustering Assignment" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -95,24 +95,9 @@
  </li>
 </ul>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="markdown.html">
-   Markdown Files
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="notebooks.html">
-   Content with notebooks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="mymarkdownfile.html">
-   Here’s my title
-  </a>
- </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Initial Setup
+   Clustering of Total Dataset
   </a>
  </li>
 </ul>
@@ -221,6 +206,11 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
+   Clustering of Total Dataset
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#initial-setup">
    Initial Setup
   </a>
   <ul class="visible nav section-nav flex-column">
@@ -351,7 +341,40 @@
         
               <div>
                 
-  <div class="section" id="initial-setup">
+  <div class="section" id="clustering-of-total-dataset">
+<h1>Clustering of Total Dataset<a class="headerlink" href="#clustering-of-total-dataset" title="Permalink to this headline">¶</a></h1>
+<p>In the follownig Jupyter Notebook, we will be clustering and performing some analysis on the total dataset of 617 healthy participants performing the <strong><em>owa Gambling Task</em></strong> (IGT). The clustering algorithm we will be using is the <strong>K-Means Algorithm</strong>. In the following analysis, we will not be taking varying testing conditions between studies (such as <em>Reward Scheme</em> and <em>number of attempts</em>) into consideration.</p>
+<p>We will perform the following tasks in this Notebook:</p>
+<ol class="simple">
+<li><p>Analysis Setup</p></li>
+<li><p>Understand Data Distribution</p>
+<ul class="simple">
+<li><p>Histogram</p></li>
+<li><p>QQPlot</p></li>
+</ul>
+</li>
+<li><p>Clustering</p>
+<ul class="simple">
+<li><p>Finding the Elbow Point (Inertia Reduction)</p></li>
+<li><p>K-Means Clustering</p></li>
+</ul>
+</li>
+<li><p>Comparison Between Contrasting Clusters</p>
+<ul class="simple">
+<li><p>Time-Series Analysis</p></li>
+</ul>
+</li>
+<li><p>Comparison of All Clusters</p>
+<ul class="simple">
+<li><p>Boxplot</p></li>
+</ul>
+</li>
+</ol>
+<hr class="docutils" />
+<p>In our next Notebook, we will attempt to employ a <strong>Federated Learning</strong> (FL) approach to clustering. FL is a deep-learning technique not usually associated with clustering. However, we will attempt to use some of the basic principles of FL when clustering.</p>
+<p><strong>It’s time to focus on this Notebook however, so let’s begin with the setup:</strong></p>
+</div>
+<div class="section" id="initial-setup">
 <h1>Initial Setup<a class="headerlink" href="#initial-setup" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="importing-packages">
 <h2>Importing Packages<a class="headerlink" href="#importing-packages" title="Permalink to this headline">¶</a></h2>
@@ -370,7 +393,7 @@
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_18040</span><span class="o">/</span><span class="mf">935022693.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_8152</span><span class="o">/</span><span class="mf">935022693.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">pearsonr</span>
 <span class="ne">----&gt; </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">statsmodels.graphics.gofplots</span> <span class="kn">import</span> <span class="n">qqplot</span>
@@ -537,7 +560,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Naive_Clustering_of_Total_Dataset_11_0.png" src="_images/Naive_Clustering_of_Total_Dataset_11_0.png" />
+<img alt="_images/Naive_Clustering_of_Total_Dataset_12_0.png" src="_images/Naive_Clustering_of_Total_Dataset_12_0.png" />
 </div>
 </div>
 <div class="section" id="linear-relationship">
@@ -573,7 +596,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Naive_Clustering_of_Total_Dataset_14_0.png" src="_images/Naive_Clustering_of_Total_Dataset_14_0.png" />
+<img alt="_images/Naive_Clustering_of_Total_Dataset_15_0.png" src="_images/Naive_Clustering_of_Total_Dataset_15_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -585,7 +608,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Naive_Clustering_of_Total_Dataset_15_0.png" src="_images/Naive_Clustering_of_Total_Dataset_15_0.png" />
+<img alt="_images/Naive_Clustering_of_Total_Dataset_16_0.png" src="_images/Naive_Clustering_of_Total_Dataset_16_0.png" />
 </div>
 </div>
 </div>
@@ -622,7 +645,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Naive_Clustering_of_Total_Dataset_18_0.png" src="_images/Naive_Clustering_of_Total_Dataset_18_0.png" />
+<img alt="_images/Naive_Clustering_of_Total_Dataset_19_0.png" src="_images/Naive_Clustering_of_Total_Dataset_19_0.png" />
 </div>
 </div>
 <div class="section" id="interpreting-the-inertia-graph">
@@ -693,7 +716,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Naive_Clustering_of_Total_Dataset_23_0.png" src="_images/Naive_Clustering_of_Total_Dataset_23_0.png" />
+<img alt="_images/Naive_Clustering_of_Total_Dataset_24_0.png" src="_images/Naive_Clustering_of_Total_Dataset_24_0.png" />
 </div>
 </div>
 <p><a id=cluster_analysis></a></p>
@@ -712,6 +735,7 @@
 <p>For simplicity, we will choose <strong>6</strong> participants out of the <strong>57</strong> in the purple group for analysis. We will choose <strong>3 users with the highest profit and 3 users with the lowest profit</strong>.</p>
 <p>Clustering participants based on the decks they chose from is a difficult task. Instead, a <strong>time-series chart</strong> may reveal trends in the data more easily. A time-series chart will reveal to us the decision making process of users. We expect to see choices steadily lean towards the <strong>more favourable decks of C and D</strong> in situations where the participant performed well.</p>
 <p>As we are viewing the polar extremes of the data, we should expect to see contrasting strategies employed by subjects.</p>
+<p><strong>Note: Re-running the cluster algorithm above will cause the clusters to change colour and no longer be associated with the same labels</strong></p>
 <div class="section" id="pre-processing">
 <h2>Pre-Processing<a class="headerlink" href="#pre-processing" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
@@ -1021,7 +1045,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Naive_Clustering_of_Total_Dataset_34_0.png" src="_images/Naive_Clustering_of_Total_Dataset_34_0.png" />
+<img alt="_images/Naive_Clustering_of_Total_Dataset_35_0.png" src="_images/Naive_Clustering_of_Total_Dataset_35_0.png" />
 </div>
 </div>
 <div class="section" id="interpretation-of-dark-blue-participants-choices">
@@ -1065,7 +1089,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Naive_Clustering_of_Total_Dataset_37_0.png" src="_images/Naive_Clustering_of_Total_Dataset_37_0.png" />
+<img alt="_images/Naive_Clustering_of_Total_Dataset_38_0.png" src="_images/Naive_Clustering_of_Total_Dataset_38_0.png" />
 </div>
 </div>
 <div class="section" id="interpretation-of-the-purple-participants-choices">
@@ -1308,7 +1332,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Naive_Clustering_of_Total_Dataset_44_0.png" src="_images/Naive_Clustering_of_Total_Dataset_44_0.png" />
+<img alt="_images/Naive_Clustering_of_Total_Dataset_45_0.png" src="_images/Naive_Clustering_of_Total_Dataset_45_0.png" />
 </div>
 </div>
 <div class="section" id="interpretation-of-the-box-plot">
@@ -1356,11 +1380,11 @@ it becomes clear that these clusters, namely <strong>Blue</strong>, <strong>Purp
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="mymarkdownfile.html" title="previous page">
+        <a class="left-prev" href="intro.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Here’s my title</p>
+                <p class="prevnext-title">CA4015 Clustering Assignment</p>
             </div>
         </a>
     </div>
