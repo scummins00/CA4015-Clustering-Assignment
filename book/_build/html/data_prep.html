@@ -1,0 +1,1465 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Cleaning &#8212; Clustering Assignment</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Clustering of Total Dataset (Net Win by Net Loss)" href="Naive_Clustering_of_Total_Dataset.html" />
+    <link rel="prev" title="CA4015 Clustering Assignment Introduction" href="intro.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Clustering Assignment</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   CA4015 Clustering Assignment Introduction
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Data Cleaning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Naive_Clustering_of_Total_Dataset.html">
+   Clustering of Total Dataset (Net Win by Net Loss)
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/data_prep.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fdata_prep.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/data_prep.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Data Cleaning
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-preperation">
+   Data Preperation
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#creating-rolling-dataframes">
+     Creating Rolling Dataframes
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#seperate-data-by-study">
+     Seperate Data by Study
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="data-cleaning">
+<h1>Data Cleaning<a class="headerlink" href="#data-cleaning" title="Permalink to this headline">¶</a></h1>
+<p>In the following Notebook, we will verify the integrity of our data. The data provided by 10 individual studies and centralised by {cite}’Steingroever2015’, is inherently clean and ready for use. To ensure this, we will perform the following verification steps:</p>
+<ol class="simple">
+<li><p>Test all datasets for any missing values.</p></li>
+<li><p>Verify that deck choice datasets do not host cells exceding a maximum value of 4 and a minimum value of 1.</p></li>
+</ol>
+<p><strong>Note:</strong> For the sake of simplicity, I will not be counting the {cite}’FRIDBERG201028’ survey. This survey consists of 15 participants (<em>2.4% of total</em>) and allows for 95 trials only making it inherently different to other studies.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#importing packages</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Reading in the data</span>
+<span class="n">sets</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1">#choices</span>
+<span class="n">choice_95</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/choice_95.csv&quot;</span><span class="p">)</span>
+<span class="n">sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">choice_95</span><span class="p">)</span>
+<span class="n">choice_100</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/choice_100.csv&quot;</span><span class="p">)</span>
+<span class="n">sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">choice_100</span><span class="p">)</span>
+<span class="n">choice_150</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/choice_150.csv&quot;</span><span class="p">)</span>
+<span class="n">sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">choice_150</span><span class="p">)</span>
+
+<span class="c1">#Losses</span>
+<span class="n">loss_95</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/lo_95.csv&quot;</span><span class="p">)</span>
+<span class="n">sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss_95</span><span class="p">)</span>
+<span class="n">loss_100</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/lo_100.csv&quot;</span><span class="p">)</span>
+<span class="n">sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss_100</span><span class="p">)</span>
+<span class="n">loss_150</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/lo_150.csv&quot;</span><span class="p">)</span>
+<span class="n">sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss_150</span><span class="p">)</span>
+<span class="c1">#Wins</span>
+<span class="n">win_95</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/wi_95.csv&quot;</span><span class="p">)</span>
+<span class="n">sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">win_95</span><span class="p">)</span>
+<span class="n">win_100</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/wi_100.csv&quot;</span><span class="p">)</span>
+<span class="n">sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">win_100</span><span class="p">)</span>
+<span class="n">win_150</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/wi_150.csv&quot;</span><span class="p">)</span>
+<span class="n">sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">win_150</span><span class="p">)</span>
+
+<span class="c1">#Index</span>
+<span class="n">index_95</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/index_95.csv&quot;</span><span class="p">)</span>
+<span class="n">sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index_95</span><span class="p">)</span>
+<span class="n">index_100</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/index_100.csv&quot;</span><span class="p">)</span>
+<span class="n">sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index_100</span><span class="p">)</span>
+<span class="n">index_150</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/index_150.csv&quot;</span><span class="p">)</span>
+<span class="n">sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index_150</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="nb">set</span> <span class="ow">in</span> <span class="n">sets</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NaN value detected: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">set</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">any</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NaN value detected: False
+NaN value detected: False
+NaN value detected: False
+NaN value detected: False
+NaN value detected: False
+NaN value detected: False
+NaN value detected: False
+NaN value detected: False
+NaN value detected: False
+NaN value detected: False
+NaN value detected: False
+NaN value detected: False
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Let&#39;s view the statitics for our choice datasets to verify min &amp; max values</span>
+<span class="p">(</span><span class="n">choice_100</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>min    1.0
+max    4.0
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Note: This part of data exploration is simple by nature, but generates a large output. For simplicity, I have only included the verification of the small choice_100 dataset.</strong></p>
+</div>
+<div class="section" id="data-preperation">
+<h1>Data Preperation<a class="headerlink" href="#data-preperation" title="Permalink to this headline">¶</a></h1>
+<p>In section 4 of this book, we will be performing K-Means clustering based on a participant’s net win and loss over the course of the game with results measured in 10% intervals of completion. That is to say, <strong>in the case of a participant with 100 attempts, every 10 attempts will be condensed into one score.</strong></p>
+<p>In the case of participants with 150 attempts, every <strong>15 consecutive attempts will be condensed into a singular value</strong>.</p>
+<p>In the case of participants with 95 attempts, we will measure <strong>their first 8th rounds combined with the mean result of their 9th and 10th round, followed by their 11th to 19th round, followed by round 20th to 27 th combined with the mean of 28th and 29th, followed by their 38th round</strong>, and so on.</p>
+<p>To do this, our data requires some <strong>Feature Engineering</strong>. We require a new dataset consisting of the scores described above <em>per participant</em>. Also, in Section 5, we will be performing the same analysis, but with a <strong>Federated Learning</strong> approach. This means that one large dataset will not suffice. For each of the original datasets provided we must:</p>
+<ol class="simple">
+<li><p>Create and fill our rolling score datasets</p></li>
+<li><p>Divide the data out into their individual surveys</p></li>
+</ol>
+<div class="section" id="creating-rolling-dataframes">
+<h2>Creating Rolling Dataframes<a class="headerlink" href="#creating-rolling-dataframes" title="Permalink to this headline">¶</a></h2>
+<p>The creation of Dataframes to hold rolling sumations of values across periods of 10 &amp; 15 attempts for the surveys allowing 100 &amp; 150 attempts respectfully is a painless process.</p>
+<p>However, this is not the case with the survey offering 95 attempts as 95 is an uneven number meaning it does not divide easily into equally sized portions. As a consequence of this, the processing steps for the 95 dataset are much more complex.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#We will use pandas.DataFrame.rolling() to calculate our rolling sum</span>
+
+<span class="n">rolling_win_100</span><span class="o">=</span><span class="p">(</span><span class="n">win_100</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">)]</span>
+<span class="n">rolling_loss_100</span><span class="o">=</span><span class="p">(</span><span class="n">loss_100</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">)]</span>
+
+<span class="n">rolling_win_150</span><span class="o">=</span><span class="p">(</span><span class="n">win_150</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">150</span><span class="p">,</span><span class="mi">15</span><span class="p">)]</span>
+<span class="n">rolling_loss_150</span><span class="o">=</span><span class="p">(</span><span class="n">loss_150</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">150</span><span class="p">,</span><span class="mi">15</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#The rolling values for the 95 sets are more difficult as 95 is not divisible by 10</span>
+<span class="n">inter_win_95</span><span class="o">=</span><span class="p">(</span><span class="n">win_95</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,[</span><span class="mi">9</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">27</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">37</span><span class="p">,</span><span class="mi">46</span><span class="p">,</span><span class="mi">47</span><span class="p">,</span><span class="mi">56</span><span class="p">,</span><span class="mi">65</span><span class="p">,</span><span class="mi">66</span><span class="p">,</span><span class="mi">75</span><span class="p">,</span><span class="mi">84</span><span class="p">,</span><span class="mi">85</span><span class="p">,</span> <span class="mi">94</span><span class="p">]]</span>
+
+<span class="c1">#Finding the rolling sum for 9th column</span>
+<span class="n">wins_95_col8</span><span class="o">=</span><span class="p">(</span><span class="n">win_95</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">8</span><span class="p">]</span>
+
+<span class="c1">#Calculating the average of intermediate columns as new column</span>
+<span class="n">Wins_9_5</span><span class="o">=</span><span class="p">(</span><span class="n">wins_95_col8</span><span class="o">+</span><span class="n">inter_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">Wins_28_5</span><span class="o">=</span><span class="p">(</span><span class="n">inter_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="n">inter_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">3</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">Wins_47_5</span><span class="o">=</span><span class="p">(</span><span class="n">inter_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">5</span><span class="p">]</span><span class="o">+</span><span class="n">inter_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">6</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">Wins_66_5</span><span class="o">=</span><span class="p">(</span><span class="n">inter_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">8</span><span class="p">]</span><span class="o">+</span><span class="n">inter_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">9</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">Wins_85_5</span><span class="o">=</span><span class="p">(</span><span class="n">inter_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">11</span><span class="p">]</span><span class="o">+</span><span class="n">inter_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">12</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+
+<span class="c1">#Add everything together</span>
+<span class="n">inter_win_95</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">inter_win_95</span><span class="p">,</span> <span class="n">Wins_9_5</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;Wins_9_5&quot;</span><span class="p">),</span> <span class="n">Wins_28_5</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;Wins_28_5&quot;</span><span class="p">),</span> 
+                        <span class="n">Wins_47_5</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;Wins_47_5&quot;</span><span class="p">),</span><span class="n">Wins_66_5</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;Wins_66_5&quot;</span><span class="p">),</span>
+                        <span class="n">Wins_85_5</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;Wins_85_5&quot;</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1">#Reorganise columns</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="n">inter_win_95</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">rolling_win_95</span> <span class="o">=</span> <span class="n">inter_win_95</span><span class="p">[[</span><span class="n">cols</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">],</span> <span class="n">cols</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">cols</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">],</span> <span class="n">cols</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">cols</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">],</span> <span class="n">cols</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">cols</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">cols</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">cols</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">cols</span><span class="p">[</span><span class="mi">13</span><span class="p">]]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_3992</span><span class="o">/</span><span class="mf">4266475338.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> 
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="c1">#Calculating the average of intermediate columns as new column</span>
+<span class="ne">----&gt; </span><span class="mi">8</span> <span class="n">Wins_9_5</span><span class="o">=</span><span class="p">(</span><span class="n">wins_95_col8</span><span class="o">+</span><span class="n">inter_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">Wins_28_5</span><span class="o">=</span><span class="p">(</span><span class="n">inter_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="n">inter_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">3</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">Wins_47_5</span><span class="o">=</span><span class="p">(</span><span class="n">inter_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">5</span><span class="p">]</span><span class="o">+</span><span class="n">inter_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">6</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+
+<span class="ne">NameError</span>: name &#39;inter_95&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Now we must do the same for the Losses</span>
+<span class="c1">#The rolling values for the 95 sets are more difficult as 95 is not divisible by 10</span>
+<span class="n">inter_loss_95</span><span class="o">=</span><span class="p">(</span><span class="n">loss_95</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,[</span><span class="mi">9</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">27</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">37</span><span class="p">,</span><span class="mi">46</span><span class="p">,</span><span class="mi">47</span><span class="p">,</span><span class="mi">56</span><span class="p">,</span><span class="mi">65</span><span class="p">,</span><span class="mi">66</span><span class="p">,</span><span class="mi">75</span><span class="p">,</span><span class="mi">84</span><span class="p">,</span><span class="mi">85</span><span class="p">,</span> <span class="mi">94</span><span class="p">]]</span>
+
+<span class="c1">#Finding the rolling sum for 9th column</span>
+<span class="n">losses_95_col8</span><span class="o">=</span><span class="p">(</span><span class="n">loss_95</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">8</span><span class="p">]</span>
+
+<span class="c1">#Calculating the average of intermediate columns as new column</span>
+<span class="n">Losses_9_5</span><span class="o">=</span><span class="p">(</span><span class="n">losses_95_col8</span><span class="o">+</span><span class="n">inter_loss_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">Losses28_5</span><span class="o">=</span><span class="p">(</span><span class="n">inter_loss_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="n">inter_loss_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">3</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">Losses47_5</span><span class="o">=</span><span class="p">(</span><span class="n">inter_loss_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">5</span><span class="p">]</span><span class="o">+</span><span class="n">inter_loss_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">6</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">Losses66_5</span><span class="o">=</span><span class="p">(</span><span class="n">inter_loss_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">8</span><span class="p">]</span><span class="o">+</span><span class="n">inter_loss_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">9</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">Losses85_5</span><span class="o">=</span><span class="p">(</span><span class="n">inter_loss_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">11</span><span class="p">]</span><span class="o">+</span><span class="n">inter_loss_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">12</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+
+<span class="c1">#Add everything together</span>
+<span class="n">inter_loss_95</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">inter_loss_95</span><span class="p">,</span> <span class="n">Losses_9_5</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;Losses_9_5&quot;</span><span class="p">),</span> <span class="n">Losses28_5</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;Losses28_5&quot;</span><span class="p">),</span> 
+                        <span class="n">Losses47_5</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;Losses47_5&quot;</span><span class="p">),</span><span class="n">Losses66_5</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;Losses66_5&quot;</span><span class="p">),</span>
+                        <span class="n">Losses85_5</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;Losses85_5&quot;</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1">#Reorganise columns</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="n">inter_loss_95</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">rolling_loss_95</span> <span class="o">=</span> <span class="n">inter_loss_95</span><span class="p">[[</span><span class="n">cols</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">],</span> <span class="n">cols</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">cols</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">],</span> <span class="n">cols</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">cols</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">],</span> <span class="n">cols</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">cols</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">cols</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">cols</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">cols</span><span class="p">[</span><span class="mi">13</span><span class="p">]]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="seperate-data-by-study">
+<h2>Seperate Data by Study<a class="headerlink" href="#seperate-data-by-study" title="Permalink to this headline">¶</a></h2>
+<p>We will now seperate our data by study. We can achieve this by using our <code class="docutils literal notranslate"><span class="pre">index</span></code> files which allows us to seperate our subjects row-wise. We will do the following:</p>
+<ol class="simple">
+<li><p>Append our index value as a temporary column</p></li>
+<li><p>Group our data by this new column</p></li>
+<li><p>Select each study as a subset and create a new DataFrame</p></li>
+</ol>
+<p>We already know that {cite}’FRIDBERG201028’ is the only survey allowing 95 attempts meaning it requires no action at this point.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#The 100 datasets first</span>
+
+<span class="c1">#Wins</span>
+<span class="n">grouped_wins_100</span> <span class="o">=</span> <span class="n">rolling_win_100</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">index_100</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Study&quot;</span><span class="p">)</span>
+
+<span class="n">Horstmann_rolling_wins_100</span><span class="o">=</span><span class="n">grouped_wins_100</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&quot;Horstmann&quot;</span><span class="p">)</span>
+<span class="n">Kjome_rolling_wins_100</span><span class="o">=</span><span class="n">grouped_wins_100</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&quot;Kjome&quot;</span><span class="p">)</span>
+<span class="n">Maia_rolling_wins_100</span><span class="o">=</span><span class="n">grouped_wins_100</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&quot;Maia&quot;</span><span class="p">)</span>
+<span class="n">SteingroverInPrep_rolling_wins_100</span><span class="o">=</span><span class="n">grouped_wins_100</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&quot;SteingroverInPrep&quot;</span><span class="p">)</span>
+<span class="n">Premkumar_rolling_wins_100</span><span class="o">=</span><span class="n">grouped_wins_100</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&quot;Premkumar&quot;</span><span class="p">)</span>
+<span class="n">Wood_rolling_wins_100</span><span class="o">=</span><span class="n">grouped_wins_100</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&quot;Wood&quot;</span><span class="p">)</span>
+<span class="n">Worthy_rolling_wins_100</span><span class="o">=</span><span class="n">grouped_wins_100</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&quot;Worthy&quot;</span><span class="p">)</span>
+
+<span class="c1">#Losses</span>
+<span class="n">grouped_losses_100</span> <span class="o">=</span> <span class="n">rolling_loss_100</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">index_100</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Study&quot;</span><span class="p">)</span>
+
+<span class="n">Horstmann_rolling_losses_100</span><span class="o">=</span><span class="n">grouped_losses_100</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&quot;Horstmann&quot;</span><span class="p">)</span>
+<span class="n">Kjome_rolling_losses_100</span><span class="o">=</span><span class="n">grouped_losses_100</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&quot;Kjome&quot;</span><span class="p">)</span>
+<span class="n">Maia_rolling_losses_100</span><span class="o">=</span><span class="n">grouped_losses_100</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&quot;Maia&quot;</span><span class="p">)</span>
+<span class="n">SteingroverInPrep_rolling_losses_100</span><span class="o">=</span><span class="n">grouped_losses_100</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&quot;SteingroverInPrep&quot;</span><span class="p">)</span>
+<span class="n">Premkumar_rolling_losses_100</span><span class="o">=</span><span class="n">grouped_losses_100</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&quot;Premkumar&quot;</span><span class="p">)</span>
+<span class="n">Wood_rolling_losses_100</span><span class="o">=</span><span class="n">grouped_losses_100</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&quot;Wood&quot;</span><span class="p">)</span>
+<span class="n">Worthy_rolling_losses_100</span><span class="o">=</span><span class="n">grouped_losses_100</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&quot;Worthy&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#The 150 datasets</span>
+
+<span class="c1">#Wins</span>
+<span class="n">grouped_wins_150</span> <span class="o">=</span> <span class="n">rolling_win_150</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">index_150</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Study&quot;</span><span class="p">)</span>
+
+<span class="n">Steingroever2011_rolling_wins_150</span><span class="o">=</span><span class="n">grouped_wins_150</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&quot;Steingroever2011&quot;</span><span class="p">)</span>
+<span class="n">Wetzels_rolling_wins_150</span><span class="o">=</span><span class="n">grouped_wins_150</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&quot;Wetzels&quot;</span><span class="p">)</span>
+
+
+<span class="c1">#Losses</span>
+<span class="n">grouped_losses_150</span> <span class="o">=</span> <span class="n">rolling_loss_150</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">index_150</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Study&quot;</span><span class="p">)</span>
+
+<span class="n">Steingroever2011_rolling_losses_150</span><span class="o">=</span><span class="n">grouped_losses_150</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&quot;Steingroever2011&quot;</span><span class="p">)</span>
+<span class="n">Wetzels_rolling_losses_150</span><span class="o">=</span><span class="n">grouped_losses_150</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&quot;Wetzels&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Steingroever2011_rolling_losses_150</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Losses_15</th>
+      <th>Losses_30</th>
+      <th>Losses_45</th>
+      <th>Losses_60</th>
+      <th>Losses_75</th>
+      <th>Losses_90</th>
+      <th>Losses_105</th>
+      <th>Losses_120</th>
+      <th>Losses_135</th>
+      <th>Losses_150</th>
+      <th>Subj</th>
+      <th>Study</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-500.0</td>
+      <td>-1800.0</td>
+      <td>-450.0</td>
+      <td>-600.0</td>
+      <td>-700.0</td>
+      <td>-2100.0</td>
+      <td>-300.0</td>
+      <td>-150.0</td>
+      <td>-400.0</td>
+      <td>-1700.0</td>
+      <td>1</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-1250.0</td>
+      <td>0.0</td>
+      <td>-1250.0</td>
+      <td>-1450.0</td>
+      <td>-500.0</td>
+      <td>-1000.0</td>
+      <td>-750.0</td>
+      <td>-600.0</td>
+      <td>-1650.0</td>
+      <td>-1850.0</td>
+      <td>2</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-1650.0</td>
+      <td>-700.0</td>
+      <td>-1250.0</td>
+      <td>-250.0</td>
+      <td>-1250.0</td>
+      <td>-250.0</td>
+      <td>-1800.0</td>
+      <td>-500.0</td>
+      <td>-500.0</td>
+      <td>0.0</td>
+      <td>3</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-550.0</td>
+      <td>-1050.0</td>
+      <td>-700.0</td>
+      <td>0.0</td>
+      <td>-250.0</td>
+      <td>0.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-500.0</td>
+      <td>-250.0</td>
+      <td>4</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-1800.0</td>
+      <td>0.0</td>
+      <td>-500.0</td>
+      <td>-550.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>5</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>-900.0</td>
+      <td>-1500.0</td>
+      <td>-1550.0</td>
+      <td>-1450.0</td>
+      <td>-50.0</td>
+      <td>-700.0</td>
+      <td>-600.0</td>
+      <td>-250.0</td>
+      <td>-1150.0</td>
+      <td>-950.0</td>
+      <td>6</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>-550.0</td>
+      <td>-300.0</td>
+      <td>-150.0</td>
+      <td>0.0</td>
+      <td>-1900.0</td>
+      <td>-300.0</td>
+      <td>0.0</td>
+      <td>-250.0</td>
+      <td>-300.0</td>
+      <td>-1250.0</td>
+      <td>7</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>-350.0</td>
+      <td>-250.0</td>
+      <td>-300.0</td>
+      <td>-250.0</td>
+      <td>-400.0</td>
+      <td>-250.0</td>
+      <td>-200.0</td>
+      <td>-250.0</td>
+      <td>-350.0</td>
+      <td>-250.0</td>
+      <td>8</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>-1300.0</td>
+      <td>-1950.0</td>
+      <td>-150.0</td>
+      <td>-50.0</td>
+      <td>-600.0</td>
+      <td>-1600.0</td>
+      <td>-400.0</td>
+      <td>-500.0</td>
+      <td>-450.0</td>
+      <td>-300.0</td>
+      <td>9</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>-300.0</td>
+      <td>-400.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-200.0</td>
+      <td>-250.0</td>
+      <td>-350.0</td>
+      <td>-250.0</td>
+      <td>-200.0</td>
+      <td>10</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>-1300.0</td>
+      <td>-1900.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>0.0</td>
+      <td>-500.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>11</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>-500.0</td>
+      <td>-350.0</td>
+      <td>-1650.0</td>
+      <td>-1250.0</td>
+      <td>-1250.0</td>
+      <td>-1550.0</td>
+      <td>-1600.0</td>
+      <td>-50.0</td>
+      <td>-1400.0</td>
+      <td>-250.0</td>
+      <td>12</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>-1300.0</td>
+      <td>-1300.0</td>
+      <td>-500.0</td>
+      <td>-1250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>13</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>-1250.0</td>
+      <td>-1750.0</td>
+      <td>-300.0</td>
+      <td>-150.0</td>
+      <td>0.0</td>
+      <td>-50.0</td>
+      <td>-1650.0</td>
+      <td>-200.0</td>
+      <td>-50.0</td>
+      <td>-1250.0</td>
+      <td>14</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>0.0</td>
+      <td>-1800.0</td>
+      <td>-500.0</td>
+      <td>-1550.0</td>
+      <td>-300.0</td>
+      <td>-2050.0</td>
+      <td>-300.0</td>
+      <td>-50.0</td>
+      <td>-1300.0</td>
+      <td>-200.0</td>
+      <td>15</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>-450.0</td>
+      <td>-2500.0</td>
+      <td>-150.0</td>
+      <td>-1950.0</td>
+      <td>-250.0</td>
+      <td>-150.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>16</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>-450.0</td>
+      <td>-1400.0</td>
+      <td>-1450.0</td>
+      <td>-50.0</td>
+      <td>-300.0</td>
+      <td>-1250.0</td>
+      <td>-400.0</td>
+      <td>-50.0</td>
+      <td>-300.0</td>
+      <td>-300.0</td>
+      <td>17</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>-1500.0</td>
+      <td>-250.0</td>
+      <td>-400.0</td>
+      <td>-1950.0</td>
+      <td>-1450.0</td>
+      <td>-1550.0</td>
+      <td>-50.0</td>
+      <td>-1850.0</td>
+      <td>0.0</td>
+      <td>-250.0</td>
+      <td>18</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>-250.0</td>
+      <td>-350.0</td>
+      <td>-600.0</td>
+      <td>-350.0</td>
+      <td>-1800.0</td>
+      <td>-550.0</td>
+      <td>-50.0</td>
+      <td>-1600.0</td>
+      <td>-300.0</td>
+      <td>-200.0</td>
+      <td>19</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>-1250.0</td>
+      <td>-300.0</td>
+      <td>-450.0</td>
+      <td>-150.0</td>
+      <td>-300.0</td>
+      <td>-200.0</td>
+      <td>-250.0</td>
+      <td>-150.0</td>
+      <td>-750.0</td>
+      <td>-100.0</td>
+      <td>20</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>-1250.0</td>
+      <td>-350.0</td>
+      <td>-450.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-200.0</td>
+      <td>-250.0</td>
+      <td>-200.0</td>
+      <td>-150.0</td>
+      <td>21</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>-550.0</td>
+      <td>-400.0</td>
+      <td>-1650.0</td>
+      <td>-300.0</td>
+      <td>-400.0</td>
+      <td>-150.0</td>
+      <td>-1950.0</td>
+      <td>-1550.0</td>
+      <td>0.0</td>
+      <td>-300.0</td>
+      <td>22</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>-1650.0</td>
+      <td>-700.0</td>
+      <td>-300.0</td>
+      <td>-1500.0</td>
+      <td>-250.0</td>
+      <td>-1400.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-1500.0</td>
+      <td>-1250.0</td>
+      <td>23</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>-300.0</td>
+      <td>-1250.0</td>
+      <td>-1250.0</td>
+      <td>-500.0</td>
+      <td>-1750.0</td>
+      <td>-300.0</td>
+      <td>-250.0</td>
+      <td>-1550.0</td>
+      <td>-300.0</td>
+      <td>-200.0</td>
+      <td>24</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>-1250.0</td>
+      <td>-300.0</td>
+      <td>-700.0</td>
+      <td>-1550.0</td>
+      <td>-250.0</td>
+      <td>-650.0</td>
+      <td>-400.0</td>
+      <td>-200.0</td>
+      <td>-50.0</td>
+      <td>-2200.0</td>
+      <td>25</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>-1500.0</td>
+      <td>-1900.0</td>
+      <td>-1300.0</td>
+      <td>-450.0</td>
+      <td>-500.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-350.0</td>
+      <td>-1400.0</td>
+      <td>-1500.0</td>
+      <td>26</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>-1250.0</td>
+      <td>-1700.0</td>
+      <td>-200.0</td>
+      <td>-250.0</td>
+      <td>-150.0</td>
+      <td>-200.0</td>
+      <td>-300.0</td>
+      <td>-200.0</td>
+      <td>-200.0</td>
+      <td>-250.0</td>
+      <td>27</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>-300.0</td>
+      <td>-1500.0</td>
+      <td>-150.0</td>
+      <td>-1300.0</td>
+      <td>-550.0</td>
+      <td>-1900.0</td>
+      <td>0.0</td>
+      <td>-2750.0</td>
+      <td>-50.0</td>
+      <td>-1800.0</td>
+      <td>28</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>-1600.0</td>
+      <td>-2500.0</td>
+      <td>0.0</td>
+      <td>-1250.0</td>
+      <td>-1250.0</td>
+      <td>0.0</td>
+      <td>-2500.0</td>
+      <td>-1250.0</td>
+      <td>-1250.0</td>
+      <td>-1250.0</td>
+      <td>29</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>-200.0</td>
+      <td>-1300.0</td>
+      <td>-1550.0</td>
+      <td>-100.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-550.0</td>
+      <td>-1250.0</td>
+      <td>0.0</td>
+      <td>-250.0</td>
+      <td>30</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>-1250.0</td>
+      <td>-350.0</td>
+      <td>-2500.0</td>
+      <td>-1500.0</td>
+      <td>-250.0</td>
+      <td>-1500.0</td>
+      <td>-1400.0</td>
+      <td>-600.0</td>
+      <td>-500.0</td>
+      <td>-1800.0</td>
+      <td>31</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>-2500.0</td>
+      <td>-300.0</td>
+      <td>-2500.0</td>
+      <td>-1250.0</td>
+      <td>0.0</td>
+      <td>-1500.0</td>
+      <td>-1000.0</td>
+      <td>-1250.0</td>
+      <td>-200.0</td>
+      <td>-300.0</td>
+      <td>32</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>-1800.0</td>
+      <td>-350.0</td>
+      <td>-400.0</td>
+      <td>-450.0</td>
+      <td>-100.0</td>
+      <td>-1900.0</td>
+      <td>-300.0</td>
+      <td>-400.0</td>
+      <td>-1400.0</td>
+      <td>-1650.0</td>
+      <td>33</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>-1850.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-200.0</td>
+      <td>-250.0</td>
+      <td>34</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>-2050.0</td>
+      <td>-1100.0</td>
+      <td>-1250.0</td>
+      <td>-1250.0</td>
+      <td>-1250.0</td>
+      <td>-1250.0</td>
+      <td>-1250.0</td>
+      <td>-1250.0</td>
+      <td>-1250.0</td>
+      <td>-2200.0</td>
+      <td>35</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>-1250.0</td>
+      <td>-300.0</td>
+      <td>-650.0</td>
+      <td>-550.0</td>
+      <td>-300.0</td>
+      <td>-250.0</td>
+      <td>-1500.0</td>
+      <td>-2100.0</td>
+      <td>-50.0</td>
+      <td>0.0</td>
+      <td>36</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>-250.0</td>
+      <td>-1300.0</td>
+      <td>-50.0</td>
+      <td>-600.0</td>
+      <td>-400.0</td>
+      <td>-1250.0</td>
+      <td>-100.0</td>
+      <td>-400.0</td>
+      <td>-400.0</td>
+      <td>-1250.0</td>
+      <td>37</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>-1750.0</td>
+      <td>-250.0</td>
+      <td>-300.0</td>
+      <td>-300.0</td>
+      <td>-200.0</td>
+      <td>-200.0</td>
+      <td>-250.0</td>
+      <td>-300.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>38</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>-1550.0</td>
+      <td>-1450.0</td>
+      <td>-200.0</td>
+      <td>-350.0</td>
+      <td>-1500.0</td>
+      <td>-350.0</td>
+      <td>-400.0</td>
+      <td>-150.0</td>
+      <td>-1400.0</td>
+      <td>-250.0</td>
+      <td>39</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>-150.0</td>
+      <td>-350.0</td>
+      <td>-300.0</td>
+      <td>-1300.0</td>
+      <td>-400.0</td>
+      <td>-350.0</td>
+      <td>-3100.0</td>
+      <td>-100.0</td>
+      <td>-300.0</td>
+      <td>-50.0</td>
+      <td>40</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>-350.0</td>
+      <td>-300.0</td>
+      <td>-900.0</td>
+      <td>-1650.0</td>
+      <td>-200.0</td>
+      <td>-1800.0</td>
+      <td>-350.0</td>
+      <td>-300.0</td>
+      <td>-200.0</td>
+      <td>-1350.0</td>
+      <td>41</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>-250.0</td>
+      <td>-350.0</td>
+      <td>-1800.0</td>
+      <td>-200.0</td>
+      <td>-50.0</td>
+      <td>-1000.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-300.0</td>
+      <td>-250.0</td>
+      <td>42</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>-1500.0</td>
+      <td>-550.0</td>
+      <td>-300.0</td>
+      <td>0.0</td>
+      <td>-1500.0</td>
+      <td>-400.0</td>
+      <td>-400.0</td>
+      <td>-1300.0</td>
+      <td>-1850.0</td>
+      <td>-50.0</td>
+      <td>43</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>-450.0</td>
+      <td>-1550.0</td>
+      <td>0.0</td>
+      <td>-1250.0</td>
+      <td>-50.0</td>
+      <td>-1500.0</td>
+      <td>-400.0</td>
+      <td>-1700.0</td>
+      <td>-250.0</td>
+      <td>-300.0</td>
+      <td>44</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>-600.0</td>
+      <td>-900.0</td>
+      <td>-200.0</td>
+      <td>-1250.0</td>
+      <td>-400.0</td>
+      <td>-1950.0</td>
+      <td>-1250.0</td>
+      <td>-1600.0</td>
+      <td>-50.0</td>
+      <td>-1250.0</td>
+      <td>45</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>0.0</td>
+      <td>-350.0</td>
+      <td>-1250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-300.0</td>
+      <td>-50.0</td>
+      <td>-200.0</td>
+      <td>46</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>-1850.0</td>
+      <td>-400.0</td>
+      <td>-500.0</td>
+      <td>0.0</td>
+      <td>-350.0</td>
+      <td>-1550.0</td>
+      <td>-1550.0</td>
+      <td>-50.0</td>
+      <td>-1550.0</td>
+      <td>-150.0</td>
+      <td>47</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>-200.0</td>
+      <td>-300.0</td>
+      <td>-700.0</td>
+      <td>-900.0</td>
+      <td>-300.0</td>
+      <td>0.0</td>
+      <td>-550.0</td>
+      <td>-1700.0</td>
+      <td>-350.0</td>
+      <td>-400.0</td>
+      <td>48</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>-1650.0</td>
+      <td>-50.0</td>
+      <td>-1250.0</td>
+      <td>-50.0</td>
+      <td>0.0</td>
+      <td>-1500.0</td>
+      <td>-1600.0</td>
+      <td>-350.0</td>
+      <td>-1650.0</td>
+      <td>-100.0</td>
+      <td>49</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>-1500.0</td>
+      <td>-500.0</td>
+      <td>-1250.0</td>
+      <td>0.0</td>
+      <td>-700.0</td>
+      <td>-1300.0</td>
+      <td>-300.0</td>
+      <td>0.0</td>
+      <td>-700.0</td>
+      <td>-2200.0</td>
+      <td>50</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>-150.0</td>
+      <td>-600.0</td>
+      <td>-1800.0</td>
+      <td>-600.0</td>
+      <td>-1550.0</td>
+      <td>-250.0</td>
+      <td>-1850.0</td>
+      <td>0.0</td>
+      <td>-50.0</td>
+      <td>-300.0</td>
+      <td>51</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>-350.0</td>
+      <td>-50.0</td>
+      <td>-1550.0</td>
+      <td>-350.0</td>
+      <td>-200.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-500.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>52</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>-50.0</td>
+      <td>-150.0</td>
+      <td>-1250.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-1450.0</td>
+      <td>-250.0</td>
+      <td>-400.0</td>
+      <td>-500.0</td>
+      <td>-1450.0</td>
+      <td>53</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>-1650.0</td>
+      <td>-200.0</td>
+      <td>-500.0</td>
+      <td>-1750.0</td>
+      <td>-750.0</td>
+      <td>-1850.0</td>
+      <td>-900.0</td>
+      <td>-350.0</td>
+      <td>-600.0</td>
+      <td>-350.0</td>
+      <td>54</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>-550.0</td>
+      <td>-50.0</td>
+      <td>0.0</td>
+      <td>-1250.0</td>
+      <td>-600.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>55</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>-1250.0</td>
+      <td>-1250.0</td>
+      <td>-1250.0</td>
+      <td>-1300.0</td>
+      <td>-150.0</td>
+      <td>-1250.0</td>
+      <td>-600.0</td>
+      <td>-250.0</td>
+      <td>-1550.0</td>
+      <td>-700.0</td>
+      <td>56</td>
+      <td>Steingroever2011</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>-150.0</td>
+      <td>-250.0</td>
+      <td>-300.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-250.0</td>
+      <td>-100.0</td>
+      <td>-250.0</td>
+      <td>-200.0</td>
+      <td>-250.0</td>
+      <td>57</td>
+      <td>Steingroever2011</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="intro.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">CA4015 Clustering Assignment Introduction</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="Naive_Clustering_of_Total_Dataset.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Clustering of Total Dataset (Net Win by Net Loss)</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Seán Cummins<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

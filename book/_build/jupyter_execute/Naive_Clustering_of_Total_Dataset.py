@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Clustering of Total Dataset
+# # Clustering of Total Dataset (Net Win by Net Loss)
 # In the follownig Jupyter Notebook, we will be clustering and performing some analysis on the total dataset of 617 healthy participants performing the __*Iowa Gambling Task*__ (IGT). The clustering algorithm we will be using is the **K-Means Algorithm**. In the following analysis, we will not be taking varying testing conditions between studies (such as *Reward Scheme* and *number of attempts*) into consideration. We will be analysing users based on their **Net Win $\times$ Net Loss**.
 # 
 # We will perform the following tasks in this Notebook:
