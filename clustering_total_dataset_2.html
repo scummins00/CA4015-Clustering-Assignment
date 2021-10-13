@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Here’s my title &#8212; Clustering Assignment</title>
+    <title>Clustering of Total Dataset 2 (Income Every 10th Turn) &#8212; Clustering Assignment</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -143,9 +143,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/mymarkdownfile.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/clustering_total_dataset_2.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -163,7 +163,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmymarkdownfile.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fclustering_total_dataset_2.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -179,24 +179,28 @@
 
             <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/clustering_total_dataset_2.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
         </div>
 
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#here-s-the-first-section">
-   Here’s the first section!
-  </a>
- </li>
-</ul>
-
-            </nav>
         </div>
     </div>
 </div>
@@ -205,13 +209,9 @@
         
               <div>
                 
-  <div class="section" id="here-s-my-title">
-<h1>Here’s my title<a class="headerlink" href="#here-s-my-title" title="Permalink to this headline">¶</a></h1>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
-<div class="section" id="here-s-the-first-section">
-<span id="section-label"></span><h2>Here’s the first section!<a class="headerlink" href="#here-s-the-first-section" title="Permalink to this headline">¶</a></h2>
-<p>Here is a <a class="reference internal" href="intro.html"><span class="doc std std-doc">reference to the intro</span></a>. Here is a reference to <a class="reference internal" href="#section-label"><span class="std std-ref">Here’s the first section!</span></a>.</p>
-</div>
+  <div class="section" id="clustering-of-total-dataset-2-income-every-10th-turn">
+<h1>Clustering of Total Dataset 2 (Income Every 10th Turn)<a class="headerlink" href="#clustering-of-total-dataset-2-income-every-10th-turn" title="Permalink to this headline">¶</a></h1>
+<p>In the following Notebook, we will be examining and contrasting participants based on their total net income or net loss over the course the test measured at 10% completion intervals. That is to say that, for a participant with 100 turns, we will examine their <em>10th</em>, <em>20th</em>, <em>30th</em>, <em>40th</em>, <em>50th</em>, <em>60th</em>, <em>70th</em>, <em>80th</em>, <em>90th</em>, and <em>100th</em> round. Clustering participants based on these features will result in a <strong>10-Dimensional space</strong>. We will then perform <em>Principal Component Analysis</em> to understand which of these features are most important. Depending on the results of PCA, we will either perform dimensionality reduction or choose to continue with all 10 features.</p>
 </div>
 
     <script type="text/x-thebe-config">

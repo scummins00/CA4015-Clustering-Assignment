@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Clustering of Total Dataset &#8212; Clustering Assignment</title>
+    <title>Clustering of Total Dataset (Net Win by Net Loss) &#8212; Clustering Assignment</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -53,8 +53,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Introduction to Federated Learning" href="federated_k_means.html" />
-    <link rel="prev" title="CA4015 Clustering Assignment" href="intro.html" />
+    <link rel="prev" title="Data Cleaning" href="data_prep.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -91,19 +90,19 @@
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="intro.html">
-   CA4015 Clustering Assignment
+   CA4015 Clustering Assignment Introduction
   </a>
  </li>
 </ul>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Clustering of Total Dataset
+ <li class="toctree-l1">
+  <a class="reference internal" href="data_prep.html">
+   Data Cleaning
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="federated_k_means.html">
-   Introduction to Federated Learning
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Clustering of Total Dataset (Net Win by Net Loss)
   </a>
  </li>
 </ul>
@@ -212,7 +211,7 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
-   Clustering of Total Dataset
+   Clustering of Total Dataset (Net Win by Net Loss)
   </a>
  </li>
  <li class="toc-h1 nav-item toc-entry">
@@ -347,8 +346,8 @@
         
               <div>
                 
-  <div class="section" id="clustering-of-total-dataset">
-<h1>Clustering of Total Dataset<a class="headerlink" href="#clustering-of-total-dataset" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="clustering-of-total-dataset-net-win-by-net-loss">
+<h1>Clustering of Total Dataset (Net Win by Net Loss)<a class="headerlink" href="#clustering-of-total-dataset-net-win-by-net-loss" title="Permalink to this headline">¶</a></h1>
 <p>In the follownig Jupyter Notebook, we will be clustering and performing some analysis on the total dataset of 617 healthy participants performing the <strong><em>Iowa Gambling Task</em></strong> (IGT). The clustering algorithm we will be using is the <strong>K-Means Algorithm</strong>. In the following analysis, we will not be taking varying testing conditions between studies (such as <em>Reward Scheme</em> and <em>number of attempts</em>) into consideration. We will be analysing users based on their <strong>Net Win <span class="math notranslate nohighlight">\(\times\)</span> Net Loss</strong>.</p>
 <p>We will perform the following tasks in this Notebook:</p>
 <ol class="simple">
@@ -399,7 +398,7 @@
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_8040</span><span class="o">/</span><span class="mf">935022693.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_9140</span><span class="o">/</span><span class="mf">935022693.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">pearsonr</span>
 <span class="ne">----&gt; </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">statsmodels.graphics.gofplots</span> <span class="kn">import</span> <span class="n">qqplot</span>
@@ -1386,23 +1385,14 @@ it becomes clear that these clusters, namely <strong>Blue</strong>, <strong>Purp
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="intro.html" title="previous page">
+        <a class="left-prev" href="data_prep.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">CA4015 Clustering Assignment</p>
+                <p class="prevnext-title">Data Cleaning</p>
             </div>
         </a>
     </div>
-     <div id="next">
-        <a class="right-next" href="federated_k_means.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Introduction to Federated Learning</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
 
 </div>
         
