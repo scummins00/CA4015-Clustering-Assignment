@@ -2,7 +2,7 @@
 # coding: utf-8
 
 # # Clustering of Total Dataset
-# In the follownig Jupyter Notebook, we will be clustering and performing some analysis on the total dataset of 617 healthy participants performing the __*Iowa Gambling Task*__ (IGT). The clustering algorithm we will be using is the **K-Means Algorithm**. In the following analysis, we will not be taking varying testing conditions between studies (such as *Reward Scheme* and *number of attempts*) into consideration.
+# In the follownig Jupyter Notebook, we will be clustering and performing some analysis on the total dataset of 617 healthy participants performing the __*Iowa Gambling Task*__ (IGT). The clustering algorithm we will be using is the **K-Means Algorithm**. In the following analysis, we will not be taking varying testing conditions between studies (such as *Reward Scheme* and *number of attempts*) into consideration. We will be analysing users based on their **Net Win $\times$ Net Loss**.
 # 
 # We will perform the following tasks in this Notebook:
 # 
@@ -491,6 +491,6 @@ plt.show()
 
 # # Conclusion
 # 
-# This is the end of this Jupyter Notebook. Here we clustered our data by Net Earnings and Net Losses irrespective of study conditions such as **reward scheme** and **number of attempts**. We were able to see a linear relationship in the data which told us that in most cases, as a participant earns more reward, they consequently have greater loses. We found that the data closely resembles a **normal distribution** but does contain some **outliers** with large earnings or losses.
+# This is the end of this Jupyter Notebook. Here we clustered our data by Net Earnings and Net Losses irrespective of study conditions such as **reward scheme** and **number of attempts**. We were able to see a linear relationship in the data which told us that in most cases, as a participant earns more reward, they consequently have more loses. This is related to participants deck choice. Users who favoured Deck 'B' such as the dark blue cluster received greater rewards but endured harsher penalties resulting in a net loss over 10 turns. We found that the data closely resembles a **normal distribution** but does contain some **outliers** with large earnings or losses.
 # 
-# From viewing the cluster diagram, we understand that there are **two appararent lines** visible in the graph. This could indicate two prominent and contrasting testing conditions. This will be investigated further in the next Notebook. We will employ a *federated clustering approach*. In this approach, data is considered private and cannot be merged together. We will cluster each dataset individually, and then attempt to combine the results of these clusters in some way.
+# From viewing the cluster diagram, we understand that there are **two appararent lines** visible in the graph. This could indicate two prominent and contrasting testing conditions. This will be investigated further in the next Notebook. We will employ a *federated clustering approach*. In this approach, data is considered private and cannot be merged together. We will cluster each dataset individually, and then attempt to recalculate the k-means based on the original k-means of the individual studies.

@@ -53,6 +53,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Introduction to Federated Learning" href="federated_k_means.html" />
     <link rel="prev" title="CA4015 Clustering Assignment" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -98,6 +99,11 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Clustering of Total Dataset
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="federated_k_means.html">
+   Introduction to Federated Learning
   </a>
  </li>
 </ul>
@@ -343,7 +349,7 @@
                 
   <div class="section" id="clustering-of-total-dataset">
 <h1>Clustering of Total Dataset<a class="headerlink" href="#clustering-of-total-dataset" title="Permalink to this headline">¶</a></h1>
-<p>In the follownig Jupyter Notebook, we will be clustering and performing some analysis on the total dataset of 617 healthy participants performing the <strong><em>Iowa Gambling Task</em></strong> (IGT). The clustering algorithm we will be using is the <strong>K-Means Algorithm</strong>. In the following analysis, we will not be taking varying testing conditions between studies (such as <em>Reward Scheme</em> and <em>number of attempts</em>) into consideration.</p>
+<p>In the follownig Jupyter Notebook, we will be clustering and performing some analysis on the total dataset of 617 healthy participants performing the <strong><em>Iowa Gambling Task</em></strong> (IGT). The clustering algorithm we will be using is the <strong>K-Means Algorithm</strong>. In the following analysis, we will not be taking varying testing conditions between studies (such as <em>Reward Scheme</em> and <em>number of attempts</em>) into consideration. We will be analysing users based on their <strong>Net Win <span class="math notranslate nohighlight">\(\times\)</span> Net Loss</strong>.</p>
 <p>We will perform the following tasks in this Notebook:</p>
 <ol class="simple">
 <li><p>Analysis Setup</p></li>
@@ -393,7 +399,7 @@
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_16084</span><span class="o">/</span><span class="mf">935022693.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_8040</span><span class="o">/</span><span class="mf">935022693.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">pearsonr</span>
 <span class="ne">----&gt; </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">statsmodels.graphics.gofplots</span> <span class="kn">import</span> <span class="n">qqplot</span>
@@ -1346,8 +1352,8 @@ it becomes clear that these clusters, namely <strong>Blue</strong>, <strong>Purp
 </div>
 <div class="section" id="conclusion">
 <h1>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h1>
-<p>This is the end of this Jupyter Notebook. Here we clustered our data by Net Earnings and Net Losses irrespective of study conditions such as <strong>reward scheme</strong> and <strong>number of attempts</strong>. We were able to see a linear relationship in the data which told us that in most cases, as a participant earns more reward, they consequently have greater loses. We found that the data closely resembles a <strong>normal distribution</strong> but does contain some <strong>outliers</strong> with large earnings or losses.</p>
-<p>From viewing the cluster diagram, we understand that there are <strong>two appararent lines</strong> visible in the graph. This could indicate two prominent and contrasting testing conditions. This will be investigated further in the next Notebook. We will employ a <em>federated clustering approach</em>. In this approach, data is considered private and cannot be merged together. We will cluster each dataset individually, and then attempt to combine the results of these clusters in some way.</p>
+<p>This is the end of this Jupyter Notebook. Here we clustered our data by Net Earnings and Net Losses irrespective of study conditions such as <strong>reward scheme</strong> and <strong>number of attempts</strong>. We were able to see a linear relationship in the data which told us that in most cases, as a participant earns more reward, they consequently have more loses. This is related to participants deck choice. Users who favoured Deck ‘B’ such as the dark blue cluster received greater rewards but endured harsher penalties resulting in a net loss over 10 turns. We found that the data closely resembles a <strong>normal distribution</strong> but does contain some <strong>outliers</strong> with large earnings or losses.</p>
+<p>From viewing the cluster diagram, we understand that there are <strong>two appararent lines</strong> visible in the graph. This could indicate two prominent and contrasting testing conditions. This will be investigated further in the next Notebook. We will employ a <em>federated clustering approach</em>. In this approach, data is considered private and cannot be merged together. We will cluster each dataset individually, and then attempt to recalculate the k-means based on the original k-means of the individual studies.</p>
 </div>
 
     <script type="text/x-thebe-config">
@@ -1388,6 +1394,15 @@ it becomes clear that these clusters, namely <strong>Blue</strong>, <strong>Purp
             </div>
         </a>
     </div>
+     <div id="next">
+        <a class="right-next" href="federated_k_means.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Introduction to Federated Learning</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
 
 </div>
         

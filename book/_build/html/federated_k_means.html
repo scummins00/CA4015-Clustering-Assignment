@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CA4015 Clustering Assignment &#8212; Clustering Assignment</title>
+    <title>Introduction to Federated Learning &#8212; Clustering Assignment</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,7 +51,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Clustering of Total Dataset" href="Naive_Clustering_of_Total_Dataset.html" />
+    <link rel="prev" title="Clustering of Total Dataset" href="Naive_Clustering_of_Total_Dataset.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -86,20 +86,20 @@
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
- <li class="toctree-l1 current">
-  <a class="reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
    CA4015 Clustering Assignment
   </a>
  </li>
 </ul>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="Naive_Clustering_of_Total_Dataset.html">
    Clustering of Total Dataset
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="federated_k_means.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Introduction to Federated Learning
   </a>
  </li>
@@ -144,9 +144,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/intro.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/federated_k_means.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -164,7 +164,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ffederated_k_means.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -180,6 +180,23 @@
 
             <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/federated_k_means.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
         </div>
 
         <!-- Table of contents -->
@@ -193,11 +210,9 @@
         
               <div>
                 
-  <div class="section" id="ca4015-clustering-assignment">
-<h1>CA4015 Clustering Assignment<a class="headerlink" href="#ca4015-clustering-assignment" title="Permalink to this headline">¶</a></h1>
-<p>This Jupyter Book will hold an analysis of data from 617 Healthy Participants Performing the Iowa Gambling Task (IGT).</p>
-<div class="toctree-wrapper compound">
-</div>
+  <div class="section" id="introduction-to-federated-learning">
+<h1>Introduction to Federated Learning<a class="headerlink" href="#introduction-to-federated-learning" title="Permalink to this headline">¶</a></h1>
+<p>Federated Learning is a deep learning approach which involves training a model over disconnected or siloed data centres such as mobile phones. Rather than both the data and model being centralised on one system, data is preserved in its local environment. A machine learning model is sent to the system hosting the data, rather than the inverse. This approach makes a step forward in protecting the privacy of user-generated data. In FL, the user data is not transmitted across a network. However, there are challenges associated with FL, including: <em>the expensive nature</em>, <em>system heterogeneity</em>, <em>statistical heterogeneity</em>, and <em>privacy</em> {cite:p}Li2020 .</p>
 </div>
 
     <script type="text/x-thebe-config">
@@ -229,15 +244,15 @@
 
 <div class='prev-next-bottom'>
     
-     <div id="next">
-        <a class="right-next" href="Naive_Clustering_of_Total_Dataset.html" title="next page">
+    <div id="prev">
+        <a class="left-prev" href="Naive_Clustering_of_Total_Dataset.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
+                <p class="prevnext-label">previous</p>
                 <p class="prevnext-title">Clustering of Total Dataset</p>
             </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
         </a>
-     </div>
+    </div>
 
 </div>
         
