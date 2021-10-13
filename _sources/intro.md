@@ -14,16 +14,17 @@ __*Federated Learning*__ (FL) is a deep learning approach which involves trainin
 As stated previously, the data originates from 10 individual studies. These studies can be found listed below:
 
 | Study                     | Amount of Participants| Number of Trials  |
-| -------------             |:-------------:		|     -----:        |
-| {cite}'FRIDBERG201028'    | 15			|     95         |
-| {cite}'hortsmanm2012'     | 162      		|       100        |
-| {cite}'KJOME2010299'      | 19      		|        100         |
-| {cite}'Maia16075'         | 40      		|        100        |
-| {cite}'PREMKUMAR20082002' | 25      		|        100        |
-| {cite}'stein_sub_study_1' | 70     		|        100        |
-| {cite}'stein_sub_study_2' | 57      		|        100        |
-| {cite}'WETZELS201014'     | 41      		|        150        |
-| {cite}'Wood2005'          | 153      		|        100        |
-| {cite}'Worthy2013'        | 35    		|        100        |
+| :-------------:           |:-------------:		|     :-----:       |
+| {cite}'FRIDBERG201028'    | 15			        |        95         |
+| {cite}'hortsmanm2012'     | 162      		        |        100        |
+| {cite}'KJOME2010299'      | 19      		        |        100        |
+| {cite}'Maia16075'         | 40      		        |        100        |
+| {cite}'PREMKUMAR20082002' | 25      		        |        100        |
+| {cite}'stein_sub_study_1' | 70     		        |        100        |
+| {cite}'stein_sub_study_2' | 57      		        |        100        |
+| {cite}'WETZELS201014'     | 41      		        |        150        |
+| {cite}'Wood2005'          | 153      		        |        100        |
+| {cite}'Worthy2013'        | 35    		        |        100        |
 
-As stated previously, all studies were administered through a computerized version of the IGT to ensure quality {cite}'Steingroever2015'.
+### Quality Control
+All studies were administered through a computerized version of the IGT to ensure quality {cite}'Steingroever2015'.
