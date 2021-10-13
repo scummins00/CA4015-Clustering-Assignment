@@ -204,15 +204,3 @@ grouped_losses_150 = rolling_loss_150.reset_index(drop=True).join(index_150).gro
 Steingroever2011_rolling_losses_150=grouped_losses_150.get_group("Steingroever2011")
 Wetzels_rolling_losses_150=grouped_losses_150.get_group("Wetzels")
 
-
-# In[251]:
-
-
-Steingroever2011_rolling_losses_150
-
-
-# In[ ]:
-
-
-
-
