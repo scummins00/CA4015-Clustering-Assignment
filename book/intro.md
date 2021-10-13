@@ -1,4 +1,4 @@
-# CA4015 Clustering Assignment
+# CA4015 Clustering Assignment Introduction
 ---
 
 ## Introduction to the Iowa Gambling Task
