@@ -11,9 +11,7 @@ This repository is to store the Jupyter Book and accompanying files for the Clus
 This Jupyter Book is available in pdf version. To create the pdf, you will need `pyppeteer` to convert HTML to PDF.
 
 Install `pyppeteer` using the following command:
-
 `pip install pyppeteer`
 
 Once installed, you can build the PDF using:
-
 `jupyter-book build book/ --builder pdfhtml`
