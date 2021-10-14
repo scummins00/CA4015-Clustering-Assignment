@@ -2,12 +2,10 @@
 # coding: utf-8
 
 # # Data Cleaning
-# In the following Notebook, we will verify the integrity of our data. The data provided by 10 individual studies and centralised by {cite}'Steingroever2015', is inherently clean and ready for use. To ensure this, we will perform the following verification steps:
+# In the following Notebook, we will verify the integrity of our data. The data provided by 10 individual studies and centralised by {cite}`Steingroever2015`, is inherently clean and ready for use. To ensure this, we will perform the following verification steps:
 # 
 # 1. Test all datasets for any missing values.
 # 2. Verify that deck choice datasets do not host cells exceding a maximum value of 4 and a minimum value of 1.
-# 
-# **Note:** For the sake of simplicity, I will not be counting the {cite}'FRIDBERG201028' survey. This survey consists of 15 participants (*2.4% of total*) and allows for 95 trials only making it inherently different to other studies.
 
 # In[1]:
 
@@ -72,12 +70,12 @@ for set in sets:
 # 
 # In the case of participants with 150 attempts, every **15 consecutive attempts will be condensed into a singular value**.
 # 
-# In the case of participants with 95 attempts, we will measure **their first 8th rounds combined with the mean result of their 9th and 10th round, followed by their 11th to 19th round, followed by round 20th to 27 th combined with the mean of 28th and 29th, followed by their 38th round**, and so on.
+# In the case of participants with 95 attempts, some calculation will be required to aggregate data points together and obtain a mean value. This is required as *10% of 95 is 9.5*. Clearly we cannot measure the 9.5th turn. This means we will measure **the mean of the 9th and 10th turn**.
 # 
 # To do this, our data requires some **Feature Engineering**. We require a new dataset consisting of the scores described above *per participant*. Also, in Section 5, we will be performing the same analysis, but with a **Federated Learning** approach. This means that one large dataset will not suffice. For each of the original datasets provided we must:
 # 
 # 1. Create and fill our rolling score datasets
-# 2. Divide the data out into their individual surveys
+# 2. Divide the data out into their individual surveys 
 
 # ## Creating Rolling Dataframes
 # The creation of Dataframes to hold rolling sumations of values across periods of 10 & 15 attempts for the surveys allowing 100 & 150 attempts respectfully is a painless process.
@@ -152,67 +150,212 @@ rolling_loss_95 = inter_loss_95[[cols[-5], cols[1], cols[-4], cols[4], cols[-3],
 # ## Seperate Data by Study
 # We will now seperate our data by study. We can achieve this by using our `index` files which allows us to seperate our subjects row-wise. We will do the following:
 # 
-# 1. Append our index value as a temporary column
+# 1. Append our index value as a new column
 # 2. Group our data by this new column
 # 3. Select each study as a subset and create a new DataFrame
-# 
-# We already know that {cite}'FRIDBERG201028' is the only survey allowing 95 attempts meaning it requires no action at this point.
 
 # In[7]:
 
 
-#The 100 datasets first
+#List for sub sets
+finished_sets = []
+
+#List for full sets
+full_sets = []
+
+
+# ### Larger Rolling Datasets
+# While the seperated studies will be beneficial for the federated learning approach, it is important to keep the aggregated datasets also.
+
+# In[8]:
+
+
+#Wins
+full_rolling_wins_95 =rolling_win_95.reset_index(drop=True).join(index_95)
+full_rolling_wins_100 =rolling_win_100.reset_index(drop=True).join(index_100)
+full_rolling_wins_150 =rolling_win_150.reset_index(drop=True).join(index_150)
+full_sets.append(full_rolling_wins_95)
+full_sets.append(full_rolling_wins_100)
+full_sets.append(full_rolling_wins_150)
+
+#losses
+full_rolling_losses_95=rolling_loss_95.reset_index(drop=True).join(index_95)
+full_rolling_losses_100=rolling_loss_100.reset_index(drop=True).join(index_100)
+full_rolling_losses_150=rolling_loss_150.reset_index(drop=True).join(index_150)
+full_sets.append(full_rolling_losses_95)
+full_sets.append(full_rolling_losses_100)
+full_sets.append(full_rolling_losses_150)
+
+#Choices
+full_rolling_choices_95=choice_95.reset_index(drop=True).join(index_95)
+full_rolling_choices_100=choice_100.reset_index(drop=True).join(index_100)
+full_rolling_choices_150=choice_150.reset_index(drop=True).join(index_150)
+full_sets.append(full_rolling_choices_95)
+full_sets.append(full_rolling_choices_100)
+full_sets.append(full_rolling_choices_150)
+
+
+# ### The 95 Dataset:
+
+# In[9]:
+
+
+#Wins
+Fridberg_rolling_wins_95=rolling_win_95.reset_index(drop=True).join(index_95)
+finished_sets.append(Fridberg_rolling_wins_95)
+
+#Losses
+Fridberg_rolling_losses_95=rolling_loss_95.reset_index(drop=True).join(index_95)
+finished_sets.append(Fridberg_rolling_losses_95)
+
+#Choices
+Fridberg_choices_95=choice_95.reset_index(drop=True).join(index_95)
+finished_sets.append(Fridberg_choices_95)
+
+
+# ### The 100 dataset:
+
+# In[10]:
+
 
 #Wins
 grouped_wins_100 = rolling_win_100.reset_index(drop=True).join(index_100).groupby("Study")
 
 Horstmann_rolling_wins_100=grouped_wins_100.get_group("Horstmann")
+finished_sets.append(Horstmann_rolling_wins_100)
+
 Kjome_rolling_wins_100=grouped_wins_100.get_group("Kjome")
+finished_sets.append(Kjome_rolling_wins_100)
+
 Maia_rolling_wins_100=grouped_wins_100.get_group("Maia")
+finished_sets.append(Maia_rolling_wins_100)
+
 SteingroverInPrep_rolling_wins_100=grouped_wins_100.get_group("SteingroverInPrep")
+finished_sets.append(SteingroverInPrep_rolling_wins_100)
+
 Premkumar_rolling_wins_100=grouped_wins_100.get_group("Premkumar")
+finished_sets.append(Premkumar_rolling_wins_100)
+
 Wood_rolling_wins_100=grouped_wins_100.get_group("Wood")
+finished_sets.append(Wood_rolling_wins_100)
+
 Worthy_rolling_wins_100=grouped_wins_100.get_group("Worthy")
+finished_sets.append(Worthy_rolling_wins_100)
+
+
+# In[11]:
+
 
 #Losses
 grouped_losses_100 = rolling_loss_100.reset_index(drop=True).join(index_100).groupby("Study")
 
 Horstmann_rolling_losses_100=grouped_losses_100.get_group("Horstmann")
+finished_sets.append(Horstmann_rolling_losses_100)
+
 Kjome_rolling_losses_100=grouped_losses_100.get_group("Kjome")
+finished_sets.append(Kjome_rolling_losses_100)
+
 Maia_rolling_losses_100=grouped_losses_100.get_group("Maia")
+finished_sets.append(Maia_rolling_losses_100)
+
 SteingroverInPrep_rolling_losses_100=grouped_losses_100.get_group("SteingroverInPrep")
+finished_sets.append(SteingroverInPrep_rolling_losses_100)
+
 Premkumar_rolling_losses_100=grouped_losses_100.get_group("Premkumar")
+finished_sets.append(Premkumar_rolling_losses_100)
+
 Wood_rolling_losses_100=grouped_losses_100.get_group("Wood")
+finished_sets.append(Wood_rolling_losses_100)
+
 Worthy_rolling_losses_100=grouped_losses_100.get_group("Worthy")
+finished_sets.append(Worthy_rolling_losses_100)
 
 
-# In[8]:
+# In[12]:
 
 
-#The 150 datasets
+#Choices
+grouped_choices_100 = choice_100.reset_index(drop=True).join(index_100).groupby("Study")
+
+Horstmann_choices_100=grouped_choices_100.get_group("Horstmann")
+finished_sets.append(Horstmann_choices_100)
+
+Kjome_choices_100=grouped_choices_100.get_group("Kjome")
+finished_sets.append(Kjome_choices_100)
+
+Maia_choices_100=grouped_choices_100.get_group("Maia")
+finished_sets.append(Maia_choices_100)
+
+SteingroverInPrep_choices_100=grouped_choices_100.get_group("SteingroverInPrep")
+finished_sets.append(SteingroverInPrep_choices_100)
+
+Premkuma_choices_100=grouped_choices_100.get_group("Premkumar")
+finished_sets.append(Premkuma_choices_100)
+
+Wood_choices_100=grouped_choices_100.get_group("Wood")
+finished_sets.append(Wood_choices_100)
+
+Worthy_choices_100=grouped_choices_100.get_group("Worthy")
+finished_sets.append(Worthy_choices_100)
+
+
+# ### The 150 Dataset:
+
+# In[13]:
+
 
 #Wins
 grouped_wins_150 = rolling_win_150.reset_index(drop=True).join(index_150).groupby("Study")
 
 Steingroever2011_rolling_wins_150=grouped_wins_150.get_group("Steingroever2011")
+finished_sets.append(Steingroever2011_rolling_wins_150)
 Wetzels_rolling_wins_150=grouped_wins_150.get_group("Wetzels")
+finished_sets.append(Wetzels_rolling_wins_150)
+
+
+# In[14]:
 
 
 #Losses
 grouped_losses_150 = rolling_loss_150.reset_index(drop=True).join(index_150).groupby("Study")
 
 Steingroever2011_rolling_losses_150=grouped_losses_150.get_group("Steingroever2011")
+finished_sets.append(Steingroever2011_rolling_losses_150)
 Wetzels_rolling_losses_150=grouped_losses_150.get_group("Wetzels")
+finished_sets.append(Wetzels_rolling_losses_150)
 
 
-# In[9]:
+# In[15]:
 
 
-Maia_rolling_wins_100
+#Choices
+grouped_choices_150 = choice_150.reset_index(drop=True).join(index_150).groupby("Study")
+
+Steingroever2011_choices_150=grouped_choices_150.get_group("Steingroever2011")
+finished_sets.append(Steingroever2011_choices_150)
+Wetzels_choices_150=grouped_choices_150.get_group("Wetzels")
+finished_sets.append(Wetzels_choices_150)
 
 
-# In[ ]:
+# ### Writing Out Data:
+
+# In[16]:
 
 
+#Function for writing out datasets
+for s in finished_sets:
+    s.to_csv(f'../data/cleaned/{s.Study.unique()[0]}_rolling_{s.columns[0].split("_")[0]}_{s.columns[-3].split("_")[-1]}.csv')
 
 
+# In[17]:
+
+
+#Writing out full datasets
+for s in full_sets:
+    s.to_csv(f'../data/cleaned/full_{s.columns[0].split("_")[0]}_{s.columns[-3].split("_")[-1]}.csv')
+
+
+# ## Conclusion
+# We have now created a total of 39 datasets which are stored in a folder called `cleaned`. These sets consist of 9 full sets describing the amounts participants made and lost over 10% intervals. The other 30 sets are subsets of the larger 9 sets seperated by study.
+# 
+# We will use the larger sets in Section 4 of this book for K-Means Clustering and analysis. The subsets will then be used in Section 5 as part of a Federated Learning approach.
