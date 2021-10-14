@@ -6,4 +6,5 @@ root: intro
 chapters:
 - file: data_prep
 - file: Naive_Clustering_of_Total_Dataset
+- file: clustering_total_dataset_2
 - file: bibliography
