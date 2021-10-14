@@ -2,7 +2,7 @@
 ---
 
 ## Introduction to the Iowa Gambling Task
-This Jupyter Book will hold an analysis of data from 617 Healthy Participants Performing the **_Iowa Gambling Task_** (IGT). The data, which originates from 10 individual studies, is pooled together by {cite}'Steingroever2015'. All participants are healthy (have no known neurological impairments). Participants were assessed on a computerised version of the IGT. The playing conditions vary between each study, with participant's attempts ranging between *95 - 150 tries*. The *payoff scheme* varies also, with some servers hosting **harsher penalties** and **more lucrative rewards**.  
+This Jupyter Book will hold an analysis of data from 617 Healthy Participants Performing the **_Iowa Gambling Task_** (IGT). The data, which originates from 10 individual studies, is pooled together by {cite}`Steingroever2015`. All participants are healthy (have no known neurological impairments). Participants were assessed on a computerised version of the IGT. The playing conditions vary between each study, with participant's attempts ranging between *95 - 150 tries*. The *payoff scheme* varies also, with some servers hosting **harsher penalties** and **more lucrative rewards**.  
 
 ## Introduction to K-Means Clustering Algorithm
 **_K-Means Clustering_** is a classical machine learning algorithm developed well over 50 years ago. K-Means is an *unsupervised* machine learning technique meaning, unlike classification it does not need to be trained on annotated training data. Although K-Means is a rhobust algorithm, it does suffer from the 'curse of dimensionality'. This means that techniques such as *Principal Component Analysis* are commonly used in conjunction with K-Means to perform dimensionality reduction.
