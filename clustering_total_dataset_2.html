@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Clustering of Total Dataset 2 (Income Every 10th Turn) &#8212; Clustering Assignment</title>
+    <title>Clustering of Total Dataset 2 (10% Intervals) &#8212; Clustering Assignment</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -100,6 +100,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="Naive_Clustering_of_Total_Dataset.html">
    Clustering of Total Dataset (Net Win by Net Loss)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="bibliography.html">
+   Bibliography
   </a>
  </li>
 </ul>
@@ -201,6 +206,65 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Clustering of Total Dataset 2 (10% Intervals)
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#importing-libraries">
+     Importing Libraries
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#importing-data">
+     Importing Data
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#initial-data-manipulation">
+     Initial Data Manipulation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#k-means-clustering">
+   K-Means Clustering
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#principal-component-analysis">
+     Principal Component Analysis
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#standardization">
+       Standardization
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#finding-principal-components">
+       Finding Principal Components
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#scree-plot-analysis">
+       Scree Plot Analysis
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -209,9 +273,174 @@
         
               <div>
                 
-  <div class="section" id="clustering-of-total-dataset-2-income-every-10th-turn">
-<h1>Clustering of Total Dataset 2 (Income Every 10th Turn)<a class="headerlink" href="#clustering-of-total-dataset-2-income-every-10th-turn" title="Permalink to this headline">¶</a></h1>
-<p>In the following Notebook, we will be examining and contrasting participants based on their total net income or net loss over the course the test measured at 10% completion intervals. That is to say that, for a participant with 100 turns, we will examine their <em>10th</em>, <em>20th</em>, <em>30th</em>, <em>40th</em>, <em>50th</em>, <em>60th</em>, <em>70th</em>, <em>80th</em>, <em>90th</em>, and <em>100th</em> round. Clustering participants based on these features will result in a <strong>10-Dimensional space</strong>. We will then perform <em>Principal Component Analysis</em> to understand which of these features are most important. Depending on the results of PCA, we will either perform dimensionality reduction or choose to continue with all 10 features.</p>
+  <div class="section" id="clustering-of-total-dataset-2-10-intervals">
+<h1>Clustering of Total Dataset 2 (10% Intervals)<a class="headerlink" href="#clustering-of-total-dataset-2-10-intervals" title="Permalink to this headline">¶</a></h1>
+<p>In the following Notebook, we will be examining and contrasting participants based on their total net income or net loss over the course of the test measured at 10% intervals. That is to say that, for a participant with 100 turns, we will examine their <em>10th</em>, <em>20th</em>, <em>30th</em>, .., and <em>100th</em> round. Clustering participants based on these features will result in a <strong>10-Dimensional space</strong>. We will then perform <em>Principal Component Analysis</em> to understand which of these features are most important. Depending on the results of PCA, we will either perform dimensionality reduction or choose to continue with all 10 features.</p>
+<div class="section" id="importing-libraries">
+<h2>Importing Libraries<a class="headerlink" href="#importing-libraries" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_score</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">preprocessing</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="importing-data">
+<h2>Importing Data<a class="headerlink" href="#importing-data" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">full_sets</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">full_wins_95</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/full_Wins_95.csv&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">full_sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">full_wins_95</span><span class="p">)</span>
+<span class="n">full_wins_100</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/full_Wins_100.csv&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">full_sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">full_wins_100</span><span class="p">)</span>
+<span class="n">full_wins_150</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/full_Wins_150.csv&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">full_sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">full_wins_150</span><span class="p">)</span>
+
+<span class="n">full_losses_95</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/full_Losses_95.csv&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">full_sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">full_losses_95</span><span class="p">)</span>
+<span class="n">full_losses_100</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/full_Losses_100.csv&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">full_sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">full_losses_100</span><span class="p">)</span>
+<span class="n">full_losses_150</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/full_Losses_150.csv&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">full_sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">full_losses_150</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="initial-data-manipulation">
+<h2>Initial Data Manipulation<a class="headerlink" href="#initial-data-manipulation" title="Permalink to this headline">¶</a></h2>
+<p>From the datasets we previously created, we would like to calculate a participant’s net gain (or loss) at each measured interval for each subject. The calculation is simply  the difference between <strong><code class="docutils literal notranslate"><span class="pre">full_win</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">full_loss</span></code></strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Our Net Datasets</span>
+<span class="n">net_sets</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">net_rolling_95</span><span class="o">=</span><span class="n">full_wins_95</span> <span class="o">+</span> <span class="n">full_losses_95</span><span class="o">.</span><span class="n">values</span>
+<span class="n">net_sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">net_rolling_95</span><span class="p">)</span>
+
+<span class="n">net_rolling_100</span><span class="o">=</span><span class="n">full_wins_100</span> <span class="o">+</span> <span class="n">full_losses_100</span><span class="o">.</span><span class="n">values</span>
+<span class="n">net_sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">net_rolling_100</span><span class="p">)</span>
+
+<span class="n">net_rolling_150</span><span class="o">=</span><span class="n">full_wins_150</span> <span class="o">+</span> <span class="n">full_losses_150</span><span class="o">.</span><span class="n">values</span>
+<span class="n">net_sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">net_rolling_150</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">for now we do not need this block</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="c1">#Normalising table columns</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">net_sets</span><span class="p">:</span>
+    <span class="n">new_columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;10%&quot;</span><span class="p">,</span> <span class="s2">&quot;20%&quot;</span><span class="p">,</span> <span class="s2">&quot;30%&quot;</span><span class="p">,</span> <span class="s2">&quot;40%&quot;</span><span class="p">,</span> <span class="s2">&quot;50%&quot;</span><span class="p">,</span><span class="s2">&quot;60%&quot;</span><span class="p">,</span> <span class="s2">&quot;70%&quot;</span><span class="p">,</span> <span class="s2">&quot;80%&quot;</span><span class="p">,</span> <span class="s2">&quot;90%&quot;</span><span class="p">,</span> <span class="s2">&quot;100%&quot;</span><span class="p">]</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">set_axis</span><span class="p">(</span><span class="n">new_columns</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Let us now combine our datasets</span>
+<span class="n">net_set</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">net_sets</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="k-means-clustering">
+<h1>K-Means Clustering<a class="headerlink" href="#k-means-clustering" title="Permalink to this headline">¶</a></h1>
+<p>As is stands, our datasets consist of 10 features. We know that the K-Means algorithm suffers from the ‘curse of dimensionality’. This means that as the dimensions increase, the amount of available space increases exponentially. Eventually, we reach a point where our space is so sparsely populated that K-Means resorts to a 1:1 relationship between number of clusters and number of datapoints.</p>
+<p>To avoid this paradigm, we will perform <strong>Principal Component Analysis</strong> (PCA). PCA is used for dimensionality reduction in datasets with many features. On their own, these datasets are difficult to interpret and cannot be plotted on a 2D or 3D plane. PCA aims to increase the interpretability of these datasets. It creates new variables (<strong><em>principal components</em></strong>) that maximize variance. It then solves these variables for their eigenvalues and eigenvectors <span id="id1">[<a class="reference internal" href="markdown.html#id16">Jolliffe and Cadima, 2016</a>]</span>.</p>
+<div class="section" id="principal-component-analysis">
+<h2>Principal Component Analysis<a class="headerlink" href="#principal-component-analysis" title="Permalink to this headline">¶</a></h2>
+<p>In order for PCA to work, the data must be standardized. That is to say, all of our features must have a <strong>mean of 0</strong> and a <strong>Standard Deviation of 1</strong>. We will use the <code class="docutils literal notranslate"><span class="pre">preprocessing</span></code> package from <code class="docutils literal notranslate"><span class="pre">sklearnn</span></code> in order to achieve this. Following on from this, we will create as many principal components as there are feature vectors. We will then rank the importance of these principal components by calculating their <strong>eigenvalues</strong>. The comparison of the eigenvalues will allow us to visualise the importance of each. That is, how much variance in the true dataset they are able to account for. We will see this on a <strong>Scree Plot</strong>.</p>
+<div class="section" id="standardization">
+<h3>Standardization<a class="headerlink" href="#standardization" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Instantiate our scaler</span>
+<span class="n">min_max_scaler</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">MinMaxScaler</span><span class="p">()</span>
+
+<span class="c1">#Normalize our datasets</span>
+<span class="n">norm_net_set</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">min_max_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">net_set</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="n">net_set</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="finding-principal-components">
+<h3>Finding Principal Components<a class="headerlink" href="#finding-principal-components" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Instantiating our PCA Function</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">svd_solver</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+
+<span class="c1">#Finding the 10 Principal Components of our Datasets</span>
+<span class="n">pc_norm_net</span><span class="o">=</span><span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">norm_net_set</span><span class="p">)</span>
+
+
+<span class="c1">#Creating datasets of the principal components for visualization</span>
+<span class="n">pca_df_norm_net_set</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">pc_norm_net</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PC 1&#39;</span><span class="p">,</span> <span class="s1">&#39;PC 2&#39;</span><span class="p">,</span> <span class="s1">&#39;PC 3&#39;</span><span class="p">,</span>
+                                                       <span class="s1">&#39;PC 4&#39;</span><span class="p">,</span> <span class="s1">&#39;PC 5&#39;</span><span class="p">,</span> <span class="s1">&#39;PC 6&#39;</span><span class="p">,</span>
+                                                      <span class="s1">&#39;PC 7&#39;</span><span class="p">,</span> <span class="s1">&#39;PC 8&#39;</span><span class="p">,</span> <span class="s1">&#39;PC 9&#39;</span><span class="p">,</span> <span class="s1">&#39;PC 10&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Creating the Scree Plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+
+<span class="n">PC_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">n_components_</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">PC_values</span><span class="p">,</span> <span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">,</span> <span class="s1">&#39;ro-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Scree Plot&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Principal Component&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Proportion of Variance Explained&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/clustering_total_dataset_2_15_0.png" src="_images/clustering_total_dataset_2_15_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Proportion of Variance Explained : &quot;</span><span class="p">,</span> <span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">)</span>  
+    
+<span class="n">out_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">)</span>  
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Cumulative Prop. Variance Explained: &quot;</span><span class="p">,</span> <span class="n">out_sum</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Proportion of Variance Explained :  [0.39471861 0.32002395 0.10276651 0.04771292 0.03652619 0.0323709
+ 0.02174367 0.02018602 0.0140641  0.00988714]
+Cumulative Prop. Variance Explained:  [0.39471861 0.71474256 0.81750906 0.86522198 0.90174817 0.93411907
+ 0.95586274 0.97604875 0.99011286 1.        ]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="scree-plot-analysis">
+<h3>Scree Plot Analysis<a class="headerlink" href="#scree-plot-analysis" title="Permalink to this headline">¶</a></h3>
+<p>From the above plot we can see that <strong>71.4%</strong> of the variance in our total dataset is explained by the first and second Principal Components. With this evidence, we can conclude that the first and second Principal Components will suffice for representing the majority (over 70%) of the variance in our data.</p>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
