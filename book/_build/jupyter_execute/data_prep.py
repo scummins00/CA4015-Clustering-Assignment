@@ -66,7 +66,7 @@ for set in sets:
 # **Note: This part of data exploration is simple by nature, but generates a large output. For simplicity, I have only included the verification of the small choice_100 dataset.**
 
 # # Data Preperation
-# In section 4 of this book, we will be performing K-Means clustering based on a participant's net win and loss over the course of the game with results measured in 10% intervals of completion. That is to say, **in the case of a participant with 100 attempts, every 10 attempts will be condensed into one score.** 
+# In section 4 of this book, we will be performing K-Means clustering based on a participant's cumulative win and loss over the course of the game with results measured in 10% intervals of completion. That is to say, **we measure a participants net score every 10 turns in the case of a participant with 100 total turns**.
 # 
 # In the case of participants with 150 attempts, every **15 consecutive attempts will be condensed into a singular value**.
 # 
@@ -78,30 +78,30 @@ for set in sets:
 # 2. Divide the data out into their individual surveys 
 
 # ## Creating Rolling Dataframes
-# The creation of Dataframes to hold rolling sumations of values across periods of 10 & 15 attempts for the surveys allowing 100 & 150 attempts respectfully is a painless process.
+# The creation of Dataframes to hold rolling cumulative sumations of values across periods of 10 & 15 attempts for the surveys allowing 100 & 150 attempts respectfully is a painless process.
 # 
 # However, this is not the case with the survey offering 95 attempts as 95 is an uneven number meaning it does not divide easily into equally sized portions. As a consequence of this, the processing steps for the 95 dataset are much more complex.
 
 # In[4]:
 
 
-#We will use pandas.DataFrame.rolling() to calculate our rolling sum
+#We will use pandas.DataFrame.cumsum() to calculate our cumulative sum
 
-rolling_win_100=(win_100.rolling(window=10, axis=1).sum()).iloc[:, range(9,100,10)]
-rolling_loss_100=(loss_100.rolling(window=10, axis=1).sum()).iloc[:, range(9,100,10)]
+rolling_win_100=(win_100.cumsum(axis=1)).iloc[:, range(9,100,10)]
+rolling_loss_100=(loss_100.cumsum(axis=1)).iloc[:, range(9,100,10)]
 
-rolling_win_150=(win_150.rolling(window=10, axis=1).sum()).iloc[:, range(14,150,15)]
-rolling_loss_150=(loss_150.rolling(window=10, axis=1).sum()).iloc[:, range(14,150,15)]
+rolling_win_150=(win_150.cumsum(axis=1)).iloc[:, range(14,150,15)]
+rolling_loss_150=(loss_150.cumsum(axis=1)).iloc[:, range(14,150,15)]
 
 
 # In[5]:
 
 
 #The rolling values for the 95 sets are more difficult as 95 is not divisible by 10
-inter_95=(win_95.rolling(window=10, axis=1).sum()).iloc[:,[9,18,27,28,37,46,47,56,65,66,75,84,85, 94]]
+inter_95=(win_95.cumsum(axis=1)).iloc[:,[9,18,27,28,37,46,47,56,65,66,75,84,85, 94]]
 
 #Finding the rolling sum for 9th column
-wins_95_col8=(win_95.rolling(window=9, axis=1).sum()).iloc[:,8]
+wins_95_col8=(win_95.cumsum(axis=1)).iloc[:,8]
 
 #Calculating the average of intermediate columns as new column
 Wins_9_5=(wins_95_col8+inter_95.iloc[:,0])/2
@@ -125,10 +125,10 @@ rolling_win_95 = inter_win_95[[cols[-5], cols[1], cols[-4], cols[4], cols[-3], c
 
 #Now we must do the same for the Losses
 #The rolling values for the 95 sets are more difficult as 95 is not divisible by 10
-inter_loss_95=(loss_95.rolling(window=10, axis=1).sum()).iloc[:,[9,18,27,28,37,46,47,56,65,66,75,84,85, 94]]
+inter_loss_95=(loss_95.cumsum(axis=1)).iloc[:,[9,18,27,28,37,46,47,56,65,66,75,84,85, 94]]
 
 #Finding the rolling sum for 9th column
-losses_95_col8=(loss_95.rolling(window=9, axis=1).sum()).iloc[:,8]
+losses_95_col8=(loss_95.cumsum(axis=1)).iloc[:,8]
 
 #Calculating the average of intermediate columns as new column
 Losses_9_5=(losses_95_col8+inter_loss_95.iloc[:,0])/2
@@ -344,7 +344,7 @@ finished_sets.append(Wetzels_choices_150)
 
 #Function for writing out datasets
 for s in finished_sets:
-    s.to_csv(f'../data/cleaned/{s.Study.unique()[0]}_rolling_{s.columns[0].split("_")[0]}_{s.columns[-3].split("_")[-1]}.csv')
+    s.to_csv(f'../data/cleaned/{s.Study.unique()[0]}_rolling_{s.columns[0].split("_")[0]}_{s.columns[-3].split("_")[-1]}.csv', index=False)
 
 
 # In[17]:
@@ -352,7 +352,7 @@ for s in finished_sets:
 
 #Writing out full datasets
 for s in full_sets:
-    s.to_csv(f'../data/cleaned/full_{s.columns[0].split("_")[0]}_{s.columns[-3].split("_")[-1]}.csv')
+    s.to_csv(f'../data/cleaned/full_{s.columns[0].split("_")[0]}_{s.columns[-3].split("_")[-1]}.csv', index=False)
 
 
 # ## Conclusion
