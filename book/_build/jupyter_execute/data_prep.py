@@ -100,7 +100,7 @@ rolling_loss_150=(loss_150.rolling(window=10, axis=1).sum()).iloc[:, range(14,15
 
 
 #The rolling values for the 95 sets are more difficult as 95 is not divisible by 10
-inter_win_95=(win_95.rolling(window=10, axis=1).sum()).iloc[:,[9,18,27,28,37,46,47,56,65,66,75,84,85, 94]]
+inter_95=(win_95.rolling(window=10, axis=1).sum()).iloc[:,[9,18,27,28,37,46,47,56,65,66,75,84,85, 94]]
 
 #Finding the rolling sum for 9th column
 wins_95_col8=(win_95.rolling(window=9, axis=1).sum()).iloc[:,8]
@@ -113,7 +113,7 @@ Wins_66_5=(inter_95.iloc[:,8]+inter_95.iloc[:,9])/2
 Wins_85_5=(inter_95.iloc[:,11]+inter_95.iloc[:,12])/2
 
 #Add everything together
-inter_win_95=pd.concat([inter_win_95, Wins_9_5.rename("Wins_9_5"), Wins_28_5.rename("Wins_28_5"), 
+inter_win_95=pd.concat([inter_95, Wins_9_5.rename("Wins_9_5"), Wins_28_5.rename("Wins_28_5"), 
                         Wins_47_5.rename("Wins_47_5"),Wins_66_5.rename("Wins_66_5"),
                         Wins_85_5.rename("Wins_85_5")], axis=1)
 
@@ -122,7 +122,7 @@ cols = inter_win_95.columns.tolist()
 rolling_win_95 = inter_win_95[[cols[-5], cols[1], cols[-4], cols[4], cols[-3], cols[7], cols[-2], cols[10], cols[-1], cols[13]]]
 
 
-# In[248]:
+# In[6]:
 
 
 #Now we must do the same for the Losses
@@ -158,7 +158,7 @@ rolling_loss_95 = inter_loss_95[[cols[-5], cols[1], cols[-4], cols[4], cols[-3],
 # 
 # We already know that {cite}'FRIDBERG201028' is the only survey allowing 95 attempts meaning it requires no action at this point.
 
-# In[249]:
+# In[7]:
 
 
 #The 100 datasets first
@@ -186,7 +186,7 @@ Wood_rolling_losses_100=grouped_losses_100.get_group("Wood")
 Worthy_rolling_losses_100=grouped_losses_100.get_group("Worthy")
 
 
-# In[250]:
+# In[8]:
 
 
 #The 150 datasets
@@ -203,4 +203,16 @@ grouped_losses_150 = rolling_loss_150.reset_index(drop=True).join(index_150).gro
 
 Steingroever2011_rolling_losses_150=grouped_losses_150.get_group("Steingroever2011")
 Wetzels_rolling_losses_150=grouped_losses_150.get_group("Wetzels")
+
+
+# In[9]:
+
+
+Maia_rolling_wins_100
+
+
+# In[ ]:
+
+
+
 
