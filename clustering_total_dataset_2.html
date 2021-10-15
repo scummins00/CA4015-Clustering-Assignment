@@ -42,6 +42,8 @@
     <script src="_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -267,6 +269,41 @@
      </li>
     </ul>
    </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#deciding-value-of-k">
+     Deciding Value of K
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#a-the-elbow-method">
+       <span class="math notranslate nohighlight">
+        \((a)\)
+       </span>
+       The Elbow Method
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#b-the-silhouette-method">
+       <span class="math notranslate nohighlight">
+        \((b)\)
+       </span>
+       The Silhouette Method
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#clustering">
+     Clustering
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#cluster-analysis">
+       Cluster Analysis
+      </a>
+     </li>
+    </ul>
+   </li>
   </ul>
  </li>
 </ul>
@@ -292,8 +329,9 @@
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
 <span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_score</span><span class="p">,</span> <span class="n">silhouette_samples</span>
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">preprocessing</span>
+<span class="kn">import</span> <span class="nn">matplotlib.cm</span> <span class="k">as</span> <span class="nn">cm</span>
 </pre></div>
 </div>
 </div>
@@ -305,18 +343,18 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">full_sets</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="n">full_wins_95</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/full_Wins_95.csv&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">full_wins_95</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/full_Wins_95.csv&quot;</span><span class="p">)</span>
 <span class="n">full_sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">full_wins_95</span><span class="p">)</span>
-<span class="n">full_wins_100</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/full_Wins_100.csv&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">full_wins_100</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/full_Wins_100.csv&quot;</span><span class="p">)</span>
 <span class="n">full_sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">full_wins_100</span><span class="p">)</span>
-<span class="n">full_wins_150</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/full_Wins_150.csv&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">full_wins_150</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/full_Wins_150.csv&quot;</span><span class="p">)</span>
 <span class="n">full_sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">full_wins_150</span><span class="p">)</span>
 
-<span class="n">full_losses_95</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/full_Losses_95.csv&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">full_losses_95</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/full_Losses_95.csv&quot;</span><span class="p">)</span>
 <span class="n">full_sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">full_losses_95</span><span class="p">)</span>
-<span class="n">full_losses_100</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/full_Losses_100.csv&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">full_losses_100</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/full_Losses_100.csv&quot;</span><span class="p">)</span>
 <span class="n">full_sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">full_losses_100</span><span class="p">)</span>
-<span class="n">full_losses_150</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/full_Losses_150.csv&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">full_losses_150</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/full_Losses_150.csv&quot;</span><span class="p">)</span>
 <span class="n">full_sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">full_losses_150</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -331,10 +369,37 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Our Net Datasets</span>
 <span class="n">net_sets</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="n">net_rolling_95</span><span class="o">=</span><span class="n">full_wins_95</span> <span class="o">+</span> <span class="n">full_losses_95</span><span class="o">.</span><span class="n">values</span>
+<span class="n">net_rolling_95</span><span class="o">=</span><span class="n">full_wins_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">full_losses_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
 <span class="n">net_sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">net_rolling_95</span><span class="p">)</span>
 
-<span class="n">net_rolling_100</span><span class="o">=</span><span class="n">full_wins_100</span> <span class="o">+</span> <span class="n">full_losses_100</span><span class="o">.</span><span class="n">values</span>
+<span class="n">net_rolling_100</span><span class="o">=</span><span class="p">(</span><span class="n">full_wins_100</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">full_losses_100</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">net_rolling</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_6748</span><span class="o">/</span><span class="mf">3829859257.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> 
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">net_rolling_100</span><span class="o">=</span><span class="p">(</span><span class="n">full_wins_100</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">full_losses_100</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">8</span> <span class="n">net_rolling</span>
+
+<span class="ne">NameError</span>: name &#39;net_rolling&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Our Net Datasets</span>
+<span class="n">net_sets</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">net_rolling_95</span><span class="o">=</span><span class="n">full_wins_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">full_losses_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">net_sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">net_rolling_95</span><span class="p">)</span>
+
+<span class="n">net_rolling_100</span><span class="o">=</span><span class="p">(</span><span class="n">full_wins_100</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">full_losses_100</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">net_rolling_100</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">net_rolling_100</span><span class="p">,</span> <span class="n">full_wins_100</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="o">-</span><span class="mi">2</span><span class="p">:]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">net_sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">net_rolling_100</span><span class="p">)</span>
 
 <span class="n">net_rolling_150</span><span class="o">=</span><span class="n">full_wins_150</span> <span class="o">+</span> <span class="n">full_losses_150</span><span class="o">.</span><span class="n">values</span>
@@ -342,6 +407,216 @@
 </pre></div>
 </div>
 </div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">net_rolling_100</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Wins_10</th>
+      <th>Wins_20</th>
+      <th>Wins_30</th>
+      <th>Wins_40</th>
+      <th>Wins_50</th>
+      <th>Wins_60</th>
+      <th>Wins_70</th>
+      <th>Wins_80</th>
+      <th>Wins_90</th>
+      <th>Wins_100</th>
+      <th>Subj</th>
+      <th>Study</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>250</td>
+      <td>-600</td>
+      <td>100</td>
+      <td>200</td>
+      <td>-550</td>
+      <td>-450</td>
+      <td>-1100</td>
+      <td>-400</td>
+      <td>-1100</td>
+      <td>-1800</td>
+      <td>1</td>
+      <td>Horstmann</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>750</td>
+      <td>1400</td>
+      <td>350</td>
+      <td>-800</td>
+      <td>-400</td>
+      <td>200</td>
+      <td>150</td>
+      <td>-450</td>
+      <td>0</td>
+      <td>-800</td>
+      <td>2</td>
+      <td>Horstmann</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-1000</td>
+      <td>-500</td>
+      <td>-50</td>
+      <td>200</td>
+      <td>-500</td>
+      <td>-100</td>
+      <td>-500</td>
+      <td>-300</td>
+      <td>-1050</td>
+      <td>-450</td>
+      <td>3</td>
+      <td>Horstmann</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-1000</td>
+      <td>-700</td>
+      <td>-150</td>
+      <td>150</td>
+      <td>-500</td>
+      <td>100</td>
+      <td>500</td>
+      <td>650</td>
+      <td>700</td>
+      <td>1200</td>
+      <td>4</td>
+      <td>Horstmann</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-450</td>
+      <td>-750</td>
+      <td>-250</td>
+      <td>-750</td>
+      <td>-700</td>
+      <td>-300</td>
+      <td>50</td>
+      <td>100</td>
+      <td>-700</td>
+      <td>-1300</td>
+      <td>5</td>
+      <td>Horstmann</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>499</th>
+      <td>700</td>
+      <td>1000</td>
+      <td>250</td>
+      <td>-550</td>
+      <td>-1000</td>
+      <td>-250</td>
+      <td>-150</td>
+      <td>-150</td>
+      <td>200</td>
+      <td>75</td>
+      <td>500</td>
+      <td>Worthy</td>
+    </tr>
+    <tr>
+      <th>500</th>
+      <td>400</td>
+      <td>850</td>
+      <td>1350</td>
+      <td>400</td>
+      <td>1000</td>
+      <td>1275</td>
+      <td>1350</td>
+      <td>1675</td>
+      <td>1450</td>
+      <td>600</td>
+      <td>501</td>
+      <td>Worthy</td>
+    </tr>
+    <tr>
+      <th>501</th>
+      <td>650</td>
+      <td>1150</td>
+      <td>150</td>
+      <td>250</td>
+      <td>-1000</td>
+      <td>-650</td>
+      <td>-1225</td>
+      <td>-1200</td>
+      <td>-850</td>
+      <td>-1525</td>
+      <td>502</td>
+      <td>Worthy</td>
+    </tr>
+    <tr>
+      <th>502</th>
+      <td>750</td>
+      <td>1050</td>
+      <td>1500</td>
+      <td>100</td>
+      <td>425</td>
+      <td>-850</td>
+      <td>-250</td>
+      <td>50</td>
+      <td>-1000</td>
+      <td>-750</td>
+      <td>503</td>
+      <td>Worthy</td>
+    </tr>
+    <tr>
+      <th>503</th>
+      <td>650</td>
+      <td>100</td>
+      <td>350</td>
+      <td>-450</td>
+      <td>-200</td>
+      <td>50</td>
+      <td>100</td>
+      <td>750</td>
+      <td>-100</td>
+      <td>175</td>
+      <td>504</td>
+      <td>Worthy</td>
+    </tr>
+  </tbody>
+</table>
+<p>504 rows × 12 columns</p>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -368,7 +643,7 @@
 </div>
 <div class="section" id="k-means-clustering">
 <h1>K-Means Clustering<a class="headerlink" href="#k-means-clustering" title="Permalink to this headline">¶</a></h1>
-<p>As is stands, our datasets consist of 10 features. We know that the K-Means algorithm suffers from the ‘curse of dimensionality’. This means that as the dimensions increase, the amount of available space increases exponentially. Eventually, we reach a point where our space is so sparsely populated that K-Means resorts to a 1:1 relationship between number of clusters and number of datapoints.</p>
+<p>As is stands, our dataset consists of 10 features. We know that the K-Means algorithm suffers from the ‘curse of dimensionality’. This means that as the dimensions increase, the amount of available space increases exponentially. Eventually, we reach a point where our space is so sparsely populated that K-Means resorts to a 1:1 relationship between number of clusters and number of datapoints.</p>
 <p>To avoid this paradigm, we will perform <strong>Principal Component Analysis</strong> (PCA). PCA is used for dimensionality reduction in datasets with many features. On their own, these datasets are difficult to interpret and cannot be plotted on a 2D or 3D plane. PCA aims to increase the interpretability of these datasets. It creates new variables (<strong><em>principal components</em></strong>) that maximize variance. It then solves these variables for their eigenvalues and eigenvectors <span id="id1">[<a class="reference internal" href="markdown.html#id16">Jolliffe and Cadima, 2016</a>]</span>.</p>
 <div class="section" id="principal-component-analysis">
 <h2>Principal Component Analysis<a class="headerlink" href="#principal-component-analysis" title="Permalink to this headline">¶</a></h2>
@@ -421,7 +696,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/clustering_total_dataset_2_15_0.png" src="_images/clustering_total_dataset_2_15_0.png" />
+<img alt="_images/clustering_total_dataset_2_17_0.png" src="_images/clustering_total_dataset_2_17_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -446,6 +721,463 @@ Cumulative Prop. Variance Explained:  [0.39471861 0.71474256 0.81750906 0.865221
 <div class="section" id="scree-plot-analysis">
 <h3>Scree Plot Analysis<a class="headerlink" href="#scree-plot-analysis" title="Permalink to this headline">¶</a></h3>
 <p>From the above plot we can see that <strong>71.4%</strong> of the variance in our total dataset is explained by the first and second Principal Components. With this evidence, we can conclude that the first and second Principal Components will suffice for representing the majority (over 70%) of the variance in our data.</p>
+</div>
+</div>
+<div class="section" id="deciding-value-of-k">
+<h2>Deciding Value of K<a class="headerlink" href="#deciding-value-of-k" title="Permalink to this headline">¶</a></h2>
+<p>We must now decide on a suitable amount of clusters for our algorithm. Two largely used methods for discovering the value of K are: <span class="math notranslate nohighlight">\((a)\)</span> <em>The Elbow Method</em>, and <span class="math notranslate nohighlight">\((b)\)</span> <em>The Silhouette Method</em>.</p>
+<div class="section" id="a-the-elbow-method">
+<h3><span class="math notranslate nohighlight">\((a)\)</span> The Elbow Method<a class="headerlink" href="#a-the-elbow-method" title="Permalink to this headline">¶</a></h3>
+<p>Inelegantly named the <strong>Elbow Method</strong>, it is the oldest method for determining the correct value of K. It is a visual method that focuses on displaying the error cost associated with varying amounts of clusters. Visually, the total amount of error will fall at each increment of total number of clusters before reaching a point where it plateaus. This point is known as the elbow point. The loss in error beyond this point is not considerable enough to warrant the use of extra clusters <span id="id2">[<a class="reference internal" href="markdown.html#id17">Kodinariya and Makwana, 2013</a>]</span>.</p>
+<p><strong>Note</strong>: An error I made in the previous notebook was not ‘seeding’ my k-means algorithm. Because of this, on future runs of the same notebook, the algorithm will produce a different output. In the below example, we will use a seed (<code class="docutils literal notranslate"><span class="pre">random_state</span></code>) of 10.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Let X equal our points. We use only the first and second Principal Components</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">pca_df_norm_net_set</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="c1">#List of inertias</span>
+<span class="n">inertias</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1">#Finding and appending Inertia to list</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">inertias</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kmeans</span><span class="o">.</span><span class="n">inertia_</span><span class="p">)</span>
+
+<span class="c1">#Create Inertia Line Plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">inertias</span><span class="p">,</span> <span class="s2">&quot;go--&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Inertia Reduction&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Number of Clusters&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Inertia&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/clustering_total_dataset_2_21_0.png" src="_images/clustering_total_dataset_2_21_0.png" />
+</div>
+</div>
+<p>From the above graph, it is difficult to understand whether or not 3 or 4 clusters would be considered the better option. Let’s do a cross examination using our next method for determining k.</p>
+</div>
+<div class="section" id="b-the-silhouette-method">
+<h3><span class="math notranslate nohighlight">\((b)\)</span> The Silhouette Method<a class="headerlink" href="#b-the-silhouette-method" title="Permalink to this headline">¶</a></h3>
+<p>The Silhouette method is also used to determine the best value for K. This method measures the similarity of each point to its own cluster versus every other cluster. The method provides a <strong>succinct graphical representation</strong> describing how well each data point <span class="math notranslate nohighlight">\((i)\)</span> is described.
+The steps to find the Silhouette Score of data point <span class="math notranslate nohighlight">\(i\)</span> are as follows:</p>
+<ul class="simple">
+<li><p>Compute <span class="math notranslate nohighlight">\(a_{i}\)</span>: The average distance of that point with all other points in the same cluster.</p></li>
+<li><p>Compute <span class="math notranslate nohighlight">\(b_{i}\)</span>: The average distance of that point with all the points in the closest cluster to its cluster.</p></li>
+<li><p>Compute <span class="math notranslate nohighlight">\(S_{i}\)</span> — silhouette coefficient or i’th point using below mentioned formula.</p></li>
+</ul>
+<p>The formula is as follows: $<span class="math notranslate nohighlight">\(S_{i} = \frac{b_{i} - a_{i}}{\max{(b_{i}, a_{i})}}\)</span>$</p>
+<p>Once you obtain all of the <strong>Silhouette Coefficients</strong> (all <span class="math notranslate nohighlight">\(S_{i}\)</span>), you find the average to achieve the silhouette score.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Defining the range of clusters</span>
+<span class="n">range_n_clusters</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+
+<span class="c1">#Letting PC1 = X</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">pca_df_norm_net_set</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="c1">#Defining subplots</span>
+<span class="k">for</span> <span class="n">n_clusters</span> <span class="ow">in</span> <span class="n">range_n_clusters</span><span class="p">:</span>
+    <span class="c1"># Create a subplot with 1 row and 2 columns</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+    
+    <span class="c1">#Setting x-axis lim</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1">#Creating spacing on y-lim</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">n_clusters</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="p">])</span>
+
+    <span class="c1">#initialising clusters</span>
+    <span class="n">clusterer</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">cluster_labels</span> <span class="o">=</span> <span class="n">clusterer</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    
+    <span class="c1"># The silhouette_score gives the average value for all the samples.</span>
+    <span class="c1"># This gives a perspective into the density and separation of the formed</span>
+    <span class="c1"># clusters</span>
+    <span class="n">silhouette_avg</span> <span class="o">=</span> <span class="n">silhouette_score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">cluster_labels</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;For n_clusters =&quot;</span><span class="p">,</span> <span class="n">n_clusters</span><span class="p">,</span>
+          <span class="s2">&quot;The average silhouette_score is :&quot;</span><span class="p">,</span> <span class="n">silhouette_avg</span><span class="p">)</span>
+
+    <span class="c1"># Compute the silhouette scores for each sample</span>
+    <span class="n">sample_silhouette_values</span> <span class="o">=</span> <span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">cluster_labels</span><span class="p">)</span>
+
+    <span class="n">y_lower</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_clusters</span><span class="p">):</span>
+        <span class="c1"># Aggregate the silhouette scores for samples belonging to</span>
+        <span class="c1"># cluster i, and sort them</span>
+        <span class="n">ith_cluster_silhouette_values</span> <span class="o">=</span> \
+            <span class="n">sample_silhouette_values</span><span class="p">[</span><span class="n">cluster_labels</span> <span class="o">==</span> <span class="n">i</span><span class="p">]</span>
+
+        <span class="n">ith_cluster_silhouette_values</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+        <span class="n">size_cluster_i</span> <span class="o">=</span> <span class="n">ith_cluster_silhouette_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">y_upper</span> <span class="o">=</span> <span class="n">y_lower</span> <span class="o">+</span> <span class="n">size_cluster_i</span>
+
+        <span class="n">color</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">nipy_spectral</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_clusters</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">fill_betweenx</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">y_lower</span><span class="p">,</span> <span class="n">y_upper</span><span class="p">),</span>
+                          <span class="mi">0</span><span class="p">,</span> <span class="n">ith_cluster_silhouette_values</span><span class="p">,</span>
+                          <span class="n">facecolor</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+
+        <span class="c1"># Label the silhouette plots with their cluster numbers at the middle</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">y_lower</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">size_cluster_i</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+
+        <span class="c1"># Compute the new y_lower for next plot</span>
+        <span class="n">y_lower</span> <span class="o">=</span> <span class="n">y_upper</span> <span class="o">+</span> <span class="mi">10</span>  <span class="c1"># 10 for the 0 samples</span>
+
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;The silhouette plot for the various clusters.&quot;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;The silhouette coefficient values&quot;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Cluster label&quot;</span><span class="p">)</span>
+
+    <span class="c1"># The vertical line for average silhouette score of all the values</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">silhouette_avg</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>  <span class="c1"># Clear the yaxis labels / ticks</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># 2nd Plot showing the actual clusters formed</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">nipy_spectral</span><span class="p">(</span><span class="n">cluster_labels</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_clusters</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+                <span class="n">c</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Labeling the clusters</span>
+    <span class="n">centers</span> <span class="o">=</span> <span class="n">clusterer</span><span class="o">.</span><span class="n">cluster_centers_</span>
+    <span class="c1"># Draw white circles at cluster centers</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">centers</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">centers</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span>
+                <span class="n">c</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">centers</span><span class="p">):</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;$</span><span class="si">%d</span><span class="s1">$&#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;The visualization of the clustered data.&quot;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Feature space for the 1st Principal Component&quot;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Feature space for the 2nd Principal Component&quot;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">((</span><span class="s2">&quot;Silhouette analysis for KMeans clustering on sample data &quot;</span>
+                  <span class="s2">&quot;with n_clusters = </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">n_clusters</span><span class="p">),</span>
+                 <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>For n_clusters = 2 The average silhouette_score is : 0.3540661377361447
+For n_clusters = 3 The average silhouette_score is : 0.3899300210703239
+For n_clusters = 4 The average silhouette_score is : 0.3901970654091925
+For n_clusters = 5 The average silhouette_score is : 0.34447383123098063
+</pre></div>
+</div>
+<img alt="_images/clustering_total_dataset_2_24_1.png" src="_images/clustering_total_dataset_2_24_1.png" />
+<img alt="_images/clustering_total_dataset_2_24_2.png" src="_images/clustering_total_dataset_2_24_2.png" />
+<img alt="_images/clustering_total_dataset_2_24_3.png" src="_images/clustering_total_dataset_2_24_3.png" />
+<img alt="_images/clustering_total_dataset_2_24_4.png" src="_images/clustering_total_dataset_2_24_4.png" />
+</div>
+</div>
+<p>The silhouette scores displayed above finalise our decision that 4 clusters is the most suitable amount. Although, it should be noted that there is very slight increase in score between 3 and 4 clusters. This is likely due to the data distribution. From the visualizations on the right, it is clear that this data is evenly distributed. Visually, it is difficult to seperate clusters by eye. This is to be expected as this dataset is supposed to represent “<em>a super control set</em>”. The inclusion of extra data (possibly of participants with cognitive disorders) would have allowed for more suitable clustering.</p>
+</div>
+</div>
+<div class="section" id="clustering">
+<h2>Clustering<a class="headerlink" href="#clustering" title="Permalink to this headline">¶</a></h2>
+<p>We will now reproduce our K-Means clustering algorithm with <span class="math notranslate nohighlight">\(K = 4\)</span> . Again, for reproducability, we will seed our algorithm with the value 10. In order to analyse the clusters, we will colour each data point depending on the study it is part of. This will allow us to understand if there is a relation between clusters chosen vs origin of the data. We will use the <code class="docutils literal notranslate"><span class="pre">seaborn.sns</span></code> scatterplot package for this visualization.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Let&#39;s append our studies to the data</span>
+
+<span class="n">studies</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">full_wins_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">:],</span><span class="n">full_wins_100</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">:],</span><span class="n">full_wins_150</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">:]])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">pc1_pc2_with_studies</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pca_df_norm_net_set</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">],</span> <span class="n">studies</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">pc1_pc2_with_studies</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">pc1_pc2_with_studies</span><span class="p">[</span><span class="s2">&quot;Cluster&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">labels_</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#Setting titles</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Visualising Spread of Individual Studies&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Visualising Clusters&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;PC 1&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;PC 2&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">pc1_pc2_with_studies</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;Study&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;PC 1&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;PC 2&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">pc1_pc2_with_studies</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;Cluster&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/clustering_total_dataset_2_28_0.png" src="_images/clustering_total_dataset_2_28_0.png" />
+</div>
+</div>
+<div class="section" id="cluster-analysis">
+<h3>Cluster Analysis<a class="headerlink" href="#cluster-analysis" title="Permalink to this headline">¶</a></h3>
+<p>It is interesting to see that visually, there seems to be more data points from particular studies included in certain clusters. For example, viewing cluster 1, we can see that the majority of the datapoints consist of subjects from the <span id="id3">[<a class="reference internal" href="markdown.html#id12">Wood <em>et al.</em>, 2005</a>]</span> study. Again, it would have been ideal to be able to compare these graphs with the inclusion of participants outside of the control group. Unfortunately, due to time constraints, I will not be performing this research as part of this assignment.</p>
+<p>However, something we can do instead is measure the proportions of each cluster made up of the studies. Perhaps we will prove that cluster 1 is infact majorly consisting of participants from the <span id="id4">[<a class="reference internal" href="markdown.html#id12">Wood <em>et al.</em>, 2005</a>]</span> study. In our next notebook we will before a <strong>Federated Learning</strong> approach on the same data. We can conclude by comparing the proprtions of the clusters. As the data is a control group with even distribution, we would expect the proportions of the federated approach to be more evenly spread.</p>
+<p>To do this, we must convert our Study column values into numerical values. This is called <strong>Encoding</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pc1_pc2_with_studies</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Cluster&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Study</th>
+    </tr>
+    <tr>
+      <th>Cluster</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>FridbergFridbergFridbergFridbergFridbergFridbe...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>HorstmannHorstmannHorstmannHorstmannHorstmannH...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>FridbergFridbergFridbergHorstmannHorstmannHors...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>HorstmannHorstmannHorstmannHorstmannHorstmannH...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Instantiate the Encoder</span>
+<span class="n">le</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">LabelEncoder</span><span class="p">()</span>
+
+<span class="c1">#Fit it to our Study </span>
+<span class="n">le</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">pc1_pc2_with_studies</span><span class="o">.</span><span class="n">Study</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+
+<span class="c1">#Create a Count column for summation</span>
+<span class="n">pc1_pc2_with_studies</span><span class="p">[</span><span class="s2">&quot;Count&quot;</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pc1_pc2_with_studies</span><span class="p">[[</span><span class="s2">&quot;Cluster&quot;</span><span class="p">,</span> <span class="s2">&quot;Study&quot;</span><span class="p">,</span> <span class="s2">&quot;Count&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;Cluster&quot;</span><span class="p">,</span><span class="s2">&quot;Study&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>Count</th>
+    </tr>
+    <tr>
+      <th>Cluster</th>
+      <th>Study</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="10" valign="top">1</th>
+      <th>Fridberg</th>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>Horstmann</th>
+      <td>27</td>
+    </tr>
+    <tr>
+      <th>Kjome</th>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>Maia</th>
+      <td>24</td>
+    </tr>
+    <tr>
+      <th>Premkumar</th>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>Steingroever2011</th>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>SteingroverInPrep</th>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>Wetzels</th>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>Wood</th>
+      <td>110</td>
+    </tr>
+    <tr>
+      <th>Worthy</th>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th rowspan="8" valign="top">2</th>
+      <th>Horstmann</th>
+      <td>86</td>
+    </tr>
+    <tr>
+      <th>Maia</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>Premkumar</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Steingroever2011</th>
+      <td>24</td>
+    </tr>
+    <tr>
+      <th>SteingroverInPrep</th>
+      <td>35</td>
+    </tr>
+    <tr>
+      <th>Wetzels</th>
+      <td>24</td>
+    </tr>
+    <tr>
+      <th>Wood</th>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>Worthy</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th rowspan="10" valign="top">3</th>
+      <th>Fridberg</th>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>Horstmann</th>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>Kjome</th>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>Maia</th>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>Premkumar</th>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>Steingroever2011</th>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>SteingroverInPrep</th>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>Wetzels</th>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>Wood</th>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th>Worthy</th>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th rowspan="9" valign="top">4</th>
+      <th>Horstmann</th>
+      <td>35</td>
+    </tr>
+    <tr>
+      <th>Kjome</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Maia</th>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>Premkumar</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Steingroever2011</th>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>SteingroverInPrep</th>
+      <td>21</td>
+    </tr>
+    <tr>
+      <th>Wetzels</th>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>Wood</th>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>Worthy</th>
+      <td>5</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We can see from the above table that Cluster 1 does infact contain a large amount of subjects from the <span id="id5">[<a class="reference internal" href="markdown.html#id12">Wood <em>et al.</em>, 2005</a>]</span>. It will be interesting to see if the Federated approach yields. different results.</p>
 </div>
 </div>
 </div>
