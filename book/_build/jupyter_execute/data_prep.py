@@ -342,17 +342,17 @@ finished_sets.append(Wetzels_choices_150)
 # In[16]:
 
 
-#Function for writing out datasets
-for s in finished_sets:
-    s.to_csv(f'../data/cleaned/{s.Study.unique()[0]}_rolling_{s.columns[0].split("_")[0]}_{s.columns[-3].split("_")[-1]}.csv', index=False)
+#Writing out full datasets
+for s in full_sets:
+    s.to_csv(f'../data/cleaned/full_{s.columns[0].split("_")[0]}_{s.columns[-3].split("_")[-1]}.csv', index=False)
 
 
 # In[17]:
 
 
-#Writing out full datasets
-for s in full_sets:
-    s.to_csv(f'../data/cleaned/full_{s.columns[0].split("_")[0]}_{s.columns[-3].split("_")[-1]}.csv', index=False)
+#Writing out study datasets
+for s in finished_sets:
+    s.to_csv(f'../data/cleaned/{s.Study.unique()[0]}_rolling_{s.columns[0].split("_")[0]}_{s.columns[-3].split("_")[-1]}.csv', index=False)
 
 
 # ## Conclusion
