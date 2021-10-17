@@ -15,3 +15,5 @@ Install `pyppeteer` using the following command:
 
 Once installed, you can build the PDF using:
 `jupyter-book build book/ --builder pdfhtml`
+
+Please find the book at: `book/_build/pdf/book`
