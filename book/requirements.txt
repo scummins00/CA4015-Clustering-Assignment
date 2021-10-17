@@ -1,3 +1,14 @@
 jupyter-book
 matplotlib
 numpy
+pandas
+sklearn.preprocessing
+matplotlib.pyplot
+sklearn.cluster.KMeans
+skleanr.decomposition.PCA
+scipy.stats.pearsonr
+statsmodels.graphics.gofplots.qqplot
+sklearn.metrics.silhouette_score
+sklearn.metrics.silhouette_samples
+matplotlib.cm
+seaborn
