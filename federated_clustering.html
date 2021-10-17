@@ -1,0 +1,746 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Federated Clustering Approach (10% Intervals) &#8212; Clustering Assignment</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Conclusion" href="conclusion.html" />
+    <link rel="prev" title="Clustering of Total Dataset 2 (10% Intervals)" href="clustering_total_dataset_2.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Clustering Assignment</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   CA4015 Clustering Assignment Introduction
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="data_prep.html">
+   Data Cleaning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Naive_Clustering_of_Total_Dataset.html">
+   Clustering of Total Dataset (Net Win by Net Loss)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="clustering_total_dataset_2.html">
+   Clustering of Total Dataset 2 (10% Intervals)
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Federated Clustering Approach (10% Intervals)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="conclusion.html">
+   Conclusion
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="bibliography.html">
+   Bibliography
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/federated_clustering.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ffederated_clustering.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/federated_clustering.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Federated Clustering Approach (10% Intervals)
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#packages">
+   Packages
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-loading">
+   Data Loading
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-manipulation">
+     Data Manipulation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#k-means-clustering">
+   K-Means Clustering
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#standardization">
+     Standardization
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#perfoming-pca">
+     Perfoming PCA
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-elbow-method">
+     The Elbow Method
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     K-Means Clustering
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#centroid-elbow-method">
+     Centroid Elbow Method
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visualization-of-federated-result">
+     Visualization of Federated Result
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="federated-clustering-approach-10-intervals">
+<h1>Federated Clustering Approach (10% Intervals)<a class="headerlink" href="#federated-clustering-approach-10-intervals" title="Permalink to this headline">¶</a></h1>
+<p>In the following Notebook, we will be performing K-Means clustering as previous, except we will be employing a <strong>Federated Learning</strong> approach. That is to say, we will be treating the data collected from different studies as private and siloed instances that cannot be shared. <em>Federated Learning</em> is a deep learning approach pioneered by Google that focuses on retaining the privacy of sensitive data. We will treat the individual studies as independent silos of data.</p>
+<p>For each study, we will <strong>assume</strong> that principal components 1 and 2 are sufficient for representing a majority of the variance within the data. This assumption arises as we require all data to exist within the same <span class="math notranslate nohighlight">\(n\)</span>-dimensional plane (in our case <span class="math notranslate nohighlight">\(n = 2\)</span>). We will employ the Elbow Method once more for each survey. Visual analysis of the graphs will allow us to better understand the correct value for k in each instance. We will run our K-Means algorithm for each server.</p>
+<p>From then, we will collect all of the cluster centroids in a common array. It is at this point that the data will no longer be siloed. Although it is important to preserve the privacy of the data, the location of the centroids is considered a property of the machine learning model we are using. In most Federated Learning cases, returning attributes or properties of the model is standard practice, so long as it does not risk the security of the sensitive data. In this particular example, it is not possible to infer the values associated with specific data points from the centroids. Therefore, the privacy of the data has not been breached.</p>
+<p>Using the centroids, we will once again use the Elbow Point of an inertia reduction diagram to calculate a good value for k. We will perform a second iteration of the K-Means algorithm using our new value for k on the centroids. Once complete, we will use this new information to combine clusters of the original siloed data and return the results. We will compare this with our clusters from the previous notebook.</p>
+</div>
+<div class="section" id="packages">
+<h1>Packages<a class="headerlink" href="#packages" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">preprocessing</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="data-loading">
+<h1>Data Loading<a class="headerlink" href="#data-loading" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sets</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1">#Fridberg</span>
+<span class="n">fridberg_win</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/Fridberg_rolling_Wins_95.csv&quot;</span><span class="p">)</span>
+<span class="n">fridberg_loss</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/Fridberg_rolling_Losses_95.csv&quot;</span><span class="p">)</span>
+<span class="n">sets</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">fridberg_win</span><span class="p">,</span> <span class="n">fridberg_loss</span><span class="p">])</span>
+
+<span class="c1">#Horstmann</span>
+<span class="n">horstmann_win</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/Horstmann_rolling_Wins_100.csv&quot;</span><span class="p">)</span>
+<span class="n">horstmann_loss</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/Horstmann_rolling_Losses_100.csv&quot;</span><span class="p">)</span>
+<span class="n">sets</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">horstmann_win</span><span class="p">,</span> <span class="n">horstmann_loss</span><span class="p">])</span>
+
+<span class="c1">#Kjome</span>
+<span class="n">kjome_win</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/Kjome_rolling_Wins_100.csv&quot;</span><span class="p">)</span>
+<span class="n">kjome_loss</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/Kjome_rolling_Losses_100.csv&quot;</span><span class="p">)</span>
+<span class="n">sets</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">kjome_win</span><span class="p">,</span> <span class="n">kjome_loss</span><span class="p">])</span>
+
+<span class="c1">#Maia</span>
+<span class="n">maia_win</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/Maia_rolling_Wins_100.csv&quot;</span><span class="p">)</span>
+<span class="n">maia_loss</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/Maia_rolling_Losses_100.csv&quot;</span><span class="p">)</span>
+<span class="n">sets</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">maia_win</span><span class="p">,</span> <span class="n">maia_loss</span><span class="p">])</span>
+
+<span class="c1">#Premkumar</span>
+<span class="n">premkumar_win</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/Premkumar_rolling_Wins_100.csv&quot;</span><span class="p">)</span>
+<span class="n">premkumar_loss</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/Premkumar_rolling_Losses_100.csv&quot;</span><span class="p">)</span>
+<span class="n">sets</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">premkumar_win</span><span class="p">,</span> <span class="n">premkumar_loss</span><span class="p">])</span>
+
+<span class="c1">#Steingrover150</span>
+<span class="n">steingrover100_win</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/Steingroever2011_rolling_Wins_150.csv&quot;</span><span class="p">)</span>
+<span class="n">steingrover100_loss</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/Steingroever2011_rolling_Losses_150.csv&quot;</span><span class="p">)</span>
+<span class="n">sets</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">steingrover100_win</span><span class="p">,</span> <span class="n">steingrover100_loss</span><span class="p">])</span>
+
+<span class="c1">#Steingrover100</span>
+<span class="n">steingrover150_win</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/SteingroverInPrep_rolling_Wins_100.csv&quot;</span><span class="p">)</span>
+<span class="n">steingrover150_loss</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/SteingroverInPrep_rolling_Losses_100.csv&quot;</span><span class="p">)</span>
+<span class="n">sets</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">steingrover150_win</span><span class="p">,</span> <span class="n">steingrover150_loss</span><span class="p">])</span>
+
+<span class="c1">#Wetzels</span>
+<span class="n">wetzels_win</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/Wetzels_rolling_Wins_150.csv&quot;</span><span class="p">)</span>
+<span class="n">wetzels_loss</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/Wetzels_rolling_Losses_150.csv&quot;</span><span class="p">)</span>
+<span class="n">sets</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">wetzels_win</span><span class="p">,</span> <span class="n">wetzels_loss</span><span class="p">])</span>
+
+<span class="c1">#Wood</span>
+<span class="n">wood_win</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/Wood_rolling_Wins_100.csv&quot;</span><span class="p">)</span>
+<span class="n">wood_loss</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/Wood_rolling_Losses_100.csv&quot;</span><span class="p">)</span>
+<span class="n">sets</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">wood_win</span><span class="p">,</span> <span class="n">wood_loss</span><span class="p">])</span>
+
+<span class="c1">#Worthy</span>
+<span class="n">worthy_win</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/Worthy_rolling_Wins_100.csv&quot;</span><span class="p">)</span>
+<span class="n">worthy_loss</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/cleaned/Worthy_rolling_Losses_100.csv&quot;</span><span class="p">)</span>
+<span class="n">sets</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">worthy_win</span><span class="p">,</span> <span class="n">worthy_loss</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="data-manipulation">
+<h2>Data Manipulation<a class="headerlink" href="#data-manipulation" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#We find the net score for each participant of each study as before.</span>
+<span class="n">net_sets</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sets</span><span class="p">:</span>
+    <span class="n">st</span><span class="o">=</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">net_sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>At this point, we have created a dataset for each study accounting for participants’ net cummulative score measured at 10% intervals.</p>
+</div>
+</div>
+<div class="section" id="k-means-clustering">
+<h1>K-Means Clustering<a class="headerlink" href="#k-means-clustering" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="standardization">
+<h2>Standardization<a class="headerlink" href="#standardization" title="Permalink to this headline">¶</a></h2>
+<p>As before, we must standardize our data so that each feature has a <strong>mean of 0</strong> and a <strong>standard deviation of 1</strong>. We will not be using a scree plot to find the cumulative variance represented by the principal components as we assume 2 principal components is sufficient.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Instantiate our scaler</span>
+<span class="n">min_max_scaler</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">MinMaxScaler</span><span class="p">()</span>
+
+<span class="c1">#normalized set</span>
+<span class="n">norm_sets</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1">#Normalize our datasets</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">net_sets</span><span class="p">:</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">min_max_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="n">norm_sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="perfoming-pca">
+<h2>Perfoming PCA<a class="headerlink" href="#perfoming-pca" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pca_sets</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1">#Instantiating our PCA Function</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">svd_solver</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+
+<span class="c1">#Finding the 10 Principal Components of our Dataset</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">norm_sets</span><span class="p">:</span>
+    <span class="n">pc_norm_set</span><span class="o">=</span><span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+    <span class="c1">#Creating datasets of the principal components for visualization</span>
+    <span class="n">pc_norm_set</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">pc_norm_set</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PC 1&#39;</span><span class="p">,</span> <span class="s1">&#39;PC 2&#39;</span><span class="p">,</span> <span class="s1">&#39;PC 3&#39;</span><span class="p">,</span>
+                                                       <span class="s1">&#39;PC 4&#39;</span><span class="p">,</span> <span class="s1">&#39;PC 5&#39;</span><span class="p">,</span> <span class="s1">&#39;PC 6&#39;</span><span class="p">,</span>
+                                                      <span class="s1">&#39;PC 7&#39;</span><span class="p">,</span> <span class="s1">&#39;PC 8&#39;</span><span class="p">,</span> <span class="s1">&#39;PC 9&#39;</span><span class="p">,</span> <span class="s1">&#39;PC 10&#39;</span><span class="p">])</span>
+    <span class="n">pca_sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pc_norm_set</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Attaching survey names</span>
+<span class="n">finished_sets</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">pca_sets</span><span class="p">):</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pca_sets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">sets</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="o">-</span><span class="mi">2</span><span class="p">:]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">finished_sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+    <span class="n">i</span> <span class="o">+=</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="the-elbow-method">
+<h2>The Elbow Method<a class="headerlink" href="#the-elbow-method" title="Permalink to this headline">¶</a></h2>
+<p>We will now perform the elbow method for each of our servers.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Setting up subplots</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">finished_sets</span><span class="p">:</span>
+    <span class="c1">#Let X equal our points. We use only the first and second Principal Components</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="c1">#List of inertias</span>
+    <span class="n">inertias</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1">#Finding and appending Inertia to list</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+        <span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">inertias</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kmeans</span><span class="o">.</span><span class="n">inertia_</span><span class="p">)</span>
+
+    <span class="c1">#Create Inertia Line Plot</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">inertias</span><span class="p">,</span> <span class="s2">&quot;go--&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Inertia Reduction of </span><span class="si">{</span><span class="n">s</span><span class="o">.</span><span class="n">Study</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Number of Clusters&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Inertia&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/federated_clustering_15_0.png" src="_images/federated_clustering_15_0.png" />
+<img alt="_images/federated_clustering_15_1.png" src="_images/federated_clustering_15_1.png" />
+<img alt="_images/federated_clustering_15_2.png" src="_images/federated_clustering_15_2.png" />
+<img alt="_images/federated_clustering_15_3.png" src="_images/federated_clustering_15_3.png" />
+<img alt="_images/federated_clustering_15_4.png" src="_images/federated_clustering_15_4.png" />
+<img alt="_images/federated_clustering_15_5.png" src="_images/federated_clustering_15_5.png" />
+<img alt="_images/federated_clustering_15_6.png" src="_images/federated_clustering_15_6.png" />
+<img alt="_images/federated_clustering_15_7.png" src="_images/federated_clustering_15_7.png" />
+<img alt="_images/federated_clustering_15_8.png" src="_images/federated_clustering_15_8.png" />
+<img alt="_images/federated_clustering_15_9.png" src="_images/federated_clustering_15_9.png" />
+</div>
+</div>
+<p>It is difficult to choose a k in some cases from the plots above. We will list the studies and the number of clusters they will use as key-value pairs below:</p>
+<ul class="simple">
+<li><p>Fridberg 3</p></li>
+<li><p>Hortsmann 3</p></li>
+<li><p>Kjome 4</p></li>
+<li><p>Maia 4</p></li>
+<li><p>Premkumar 3</p></li>
+<li><p>Steingrover2011 3</p></li>
+<li><p>SteingroverInPrep 3</p></li>
+<li><p>Wetzels 3</p></li>
+<li><p>Wood 3</p></li>
+<li><p>Worthy 3</p></li>
+</ul>
+<p>Giving us a total of <strong>32</strong> clusters across 10 studies. Let’s perform our K-Means algorithm.</p>
+</div>
+<div class="section" id="id1">
+<h2>K-Means Clustering<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;darkgrid&#39;</span><span class="p">)</span>
+
+<span class="n">cluster_order</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">labels</span><span class="p">,</span> <span class="n">centroids</span><span class="o">=</span><span class="p">[],</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">positions</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">]]</span>
+             
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">30</span><span class="p">))</span>
+
+<span class="c1">#Paramater i accesses the cluster_order list and the positions list</span>
+<span class="n">i</span> <span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">study</span> <span class="ow">in</span> <span class="n">finished_sets</span><span class="p">:</span>
+    
+    <span class="n">X</span> <span class="o">=</span> <span class="n">study</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">]</span>
+    
+    <span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">cluster_order</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    
+    <span class="c1">#Calculating Labels</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">labels_</span>
+    <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+    
+    <span class="c1">#Adding labels to our study dataframes</span>
+    <span class="n">study</span><span class="p">[</span><span class="s2">&quot;Cluster&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">label</span>
+
+    <span class="c1">#Calculating Centroids</span>
+    <span class="n">centroid</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">kmeans</span><span class="o">.</span><span class="n">cluster_centers_</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Centroid PC 1&quot;</span><span class="p">,</span> <span class="s2">&quot;Centroid PC 2&quot;</span><span class="p">])</span>
+    <span class="n">centroid</span><span class="p">[</span><span class="s2">&quot;Study&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">study</span><span class="o">.</span><span class="n">Study</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">centroids</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">centroids</span><span class="p">,</span> <span class="n">centroid</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    
+    <span class="c1">#Associating points with centroid</span>
+    <span class="n">study</span><span class="p">[</span><span class="s2">&quot;Centroid X&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">centroid</span><span class="o">.</span><span class="n">loc</span>
+    
+    <span class="k">for</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">label</span><span class="p">):</span>
+        
+        <span class="c1">#Plotting data</span>
+        <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;PC 1&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;PC 2&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">][</span><span class="n">label</span><span class="o">==</span><span class="n">lbl</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="n">positions</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">positions</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]])</span>
+        <span class="n">axs</span><span class="p">[</span><span class="n">positions</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">positions</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Clustering of </span><span class="si">{</span><span class="n">study</span><span class="o">.</span><span class="n">Study</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1">#Plotting centroids</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Centroid PC 1&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Centroid PC 2&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">centroid</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="n">positions</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">positions</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]],</span>
+                    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;.05&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+
+<span class="c1">#Fixing centroid index</span>
+<span class="n">centroids</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_16672</span><span class="o">/</span><span class="mf">2759545651.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;darkgrid&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> 
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">cluster_order</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">labels</span><span class="p">,</span> <span class="n">centroids</span><span class="o">=</span><span class="p">[],</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;seaborn&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="centroid-elbow-method">
+<h2>Centroid Elbow Method<a class="headerlink" href="#centroid-elbow-method" title="Permalink to this headline">¶</a></h2>
+<p>We now have a collection of all centroids for all seperate studies. Let’s plot these, once again perform inertia reduction and select <span class="math notranslate nohighlight">\(k\)</span> using the elbow method, and finally cluster our centroids.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Centroid PC 1&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Centroid PC 2&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">centroids</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;Study&quot;</span><span class="p">,</span>
+                   <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Centroid Locations&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/federated_clustering_20_0.png" src="_images/federated_clustering_20_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Let X equal our points. We use only the first and second Principal Components</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">centroids</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="c1">#List of inertias</span>
+<span class="n">inertias</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1">#Finding and appending Inertia to list</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">inertias</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kmeans</span><span class="o">.</span><span class="n">inertia_</span><span class="p">)</span>
+
+<span class="c1">#Create Inertia Line Plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">inertias</span><span class="p">,</span> <span class="s2">&quot;go--&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Inertia Reduction of Centroid Clusters&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Number of Clusters&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Inertia&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/federated_clustering_21_0.png" src="_images/federated_clustering_21_0.png" />
+</div>
+</div>
+<p>From the above plot it seems that 3 will be an acceptable value for <span class="math notranslate nohighlight">\(k\)</span>. Let’s perform the clustering and better understand which centroids belong together.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Clustering of Centroids&quot;</span><span class="p">)</span>
+
+<span class="c1">#Let X equal our points</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">centroids</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="c1">#Perform kmeans and fit X</span>
+<span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1">#Calculating Labels</span>
+<span class="n">label</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">labels_</span>
+
+<span class="c1">#Calculating centroids</span>
+<span class="n">centroid_centroids</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">cluster_centers_</span>
+
+<span class="k">for</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">label</span><span class="p">):</span>
+        
+        <span class="c1">#Plotting data</span>
+        <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Centroid PC 1&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Centroid PC 2&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">X</span><span class="p">[</span><span class="n">label</span><span class="o">==</span><span class="n">lbl</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1">#Concat the label to our centroid df</span>
+<span class="n">centroids</span><span class="p">[</span><span class="s2">&quot;Cluster&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">label</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/federated_clustering_23_0.png" src="_images/federated_clustering_23_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="visualization-of-federated-result">
+<h2>Visualization of Federated Result<a class="headerlink" href="#visualization-of-federated-result" title="Permalink to this headline">¶</a></h2>
+<p>At this point, we will conglomerate all of the data points into one graph. We will instantiate the kmeans algorithm with 3 centroids which we calculated for our cluster centers above. Note that although the data will be represented on one plot, they still remain siloed.</p>
+<p><strong>Note: Currently Struggling with the particular visualization. It is difficult to reverse-engineer clusters of clusters to associate them with the original points. Currently looking into it. Since I’m 4 days behind I thought it would be best to upload the book in its current state and fix this issue when I am able to.</strong></p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="clustering_total_dataset_2.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Clustering of Total Dataset 2 (10% Intervals)</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="conclusion.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Conclusion</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Seán Cummins<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

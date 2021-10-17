@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CA4015 Clustering Assignment Introduction &#8212; Clustering Assignment</title>
+    <title>Conclusion &#8212; Clustering Assignment</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,7 +51,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Data Cleaning" href="data_prep.html" />
+    <link rel="next" title="Bibliography" href="bibliography.html" />
+    <link rel="prev" title="Federated Clustering Approach (10% Intervals)" href="federated_clustering.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -86,13 +87,13 @@
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
- <li class="toctree-l1 current">
-  <a class="reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
    CA4015 Clustering Assignment Introduction
   </a>
  </li>
 </ul>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="data_prep.html">
    Data Cleaning
@@ -113,8 +114,8 @@
    Federated Clustering Approach (10% Intervals)
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="conclusion.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Conclusion
   </a>
  </li>
@@ -164,7 +165,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/intro.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/conclusion.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -184,7 +185,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fconclusion.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -211,31 +212,9 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#introduction-to-the-iowa-gambling-task">
-   Introduction to the Iowa Gambling Task
+  <a class="reference internal nav-link" href="#future-work">
+   Future Work
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#introduction-to-k-means-clustering-algorithm">
-   Introduction to K-Means Clustering Algorithm
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#introduction-to-federated-learning">
-   Introduction to Federated Learning
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#dataset-description">
-   Dataset Description
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#quality-control">
-     Quality Control
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -248,80 +227,18 @@
         
               <div>
                 
-  <div class="section" id="ca4015-clustering-assignment-introduction">
-<h1>CA4015 Clustering Assignment Introduction<a class="headerlink" href="#ca4015-clustering-assignment-introduction" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
-<div class="section" id="introduction-to-the-iowa-gambling-task">
-<h2>Introduction to the Iowa Gambling Task<a class="headerlink" href="#introduction-to-the-iowa-gambling-task" title="Permalink to this headline">¶</a></h2>
-<p>This Jupyter Book will hold an analysis of data from 617 Healthy Participants Performing the <strong><em>Iowa Gambling Task</em></strong> (IGT). The data, which originates from 10 individual studies, is pooled together by <span id="id1">[<a class="reference internal" href="markdown.html#id3">Steingroever <em>et al.</em>, 2015</a>]</span>. All participants are healthy (have no known neurological impairments). Participants were assessed on a computerised version of the IGT. The playing conditions vary between each study, with participant’s attempts ranging between <em>95 - 150 tries</em>. The <em>payoff scheme</em> varies also, with some servers hosting <strong>harsher penalties</strong> and <strong>more lucrative rewards</strong>.</p>
-</div>
-<div class="section" id="introduction-to-k-means-clustering-algorithm">
-<h2>Introduction to K-Means Clustering Algorithm<a class="headerlink" href="#introduction-to-k-means-clustering-algorithm" title="Permalink to this headline">¶</a></h2>
-<p><strong><em>K-Means Clustering</em></strong> is a classical machine learning algorithm developed well over 50 years ago. K-Means is an <em>unsupervised</em> machine learning technique meaning, unlike classification it does not need to be trained on annotated training data. Although K-Means is a rhobust algorithm, it does suffer from the ‘curse of dimensionality’. This means that techniques such as <em>Principal Component Analysis</em> are commonly used in conjunction with K-Means to perform dimensionality reduction.</p>
-</div>
-<div class="section" id="introduction-to-federated-learning">
-<h2>Introduction to Federated Learning<a class="headerlink" href="#introduction-to-federated-learning" title="Permalink to this headline">¶</a></h2>
-<p><strong><em>Federated Learning</em></strong> (FL) is a deep learning approach which involves training a model over disconnected or siloed data centres such as mobile phones. Rather than both the data and model being centralised on one system, data is preserved in its local environment. A machine learning model is sent to the system hosting the data, rather than the reverse. This approach makes a step forward in protecting the privacy of user-generated data. In FL, the user data is not transmitted across a network. However, there are challenges associated with FL, including: <em>the expensive nature</em>, <em>system heterogeneity</em>, <em>statistical heterogeneity</em>, and <em>privacy</em> <span id="id2">[<a class="reference internal" href="markdown.html#id14">Li <em>et al.</em>, 2020</a>]</span>.</p>
-</div>
-<div class="section" id="dataset-description">
-<h2>Dataset Description<a class="headerlink" href="#dataset-description" title="Permalink to this headline">¶</a></h2>
-<p>As stated previously, the data originates from 10 individual studies. These studies can be found listed below:</p>
-<table class="colwidths-auto table">
-<thead>
-<tr class="row-odd"><th class="text-align:center head"><p>Study</p></th>
-<th class="text-align:center head"><p>Amount of Participants</p></th>
-<th class="text-align:center head"><p>Number of Trials</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-align:center"><p><span id="id3">[<a class="reference internal" href="markdown.html#id4">Fridberg <em>et al.</em>, 2010</a>]</span></p></td>
-<td class="text-align:center"><p>15</p></td>
-<td class="text-align:center"><p>95</p></td>
-</tr>
-<tr class="row-odd"><td class="text-align:center"><p><span id="id4">[<a class="reference internal" href="markdown.html#id5">Horstmann <em>et al.</em>, 2012</a>]</span></p></td>
-<td class="text-align:center"><p>162</p></td>
-<td class="text-align:center"><p>100</p></td>
-</tr>
-<tr class="row-even"><td class="text-align:center"><p><span id="id5">[<a class="reference internal" href="markdown.html#id6">Kjome <em>et al.</em>, 2010</a>]</span></p></td>
-<td class="text-align:center"><p>19</p></td>
-<td class="text-align:center"><p>100</p></td>
-</tr>
-<tr class="row-odd"><td class="text-align:center"><p><span id="id6">[<a class="reference internal" href="markdown.html#id7">Maia and McClelland, 2004</a>]</span></p></td>
-<td class="text-align:center"><p>40</p></td>
-<td class="text-align:center"><p>100</p></td>
-</tr>
-<tr class="row-even"><td class="text-align:center"><p><span id="id7">[<a class="reference internal" href="markdown.html#id8">Premkumar <em>et al.</em>, 2008</a>]</span></p></td>
-<td class="text-align:center"><p>25</p></td>
-<td class="text-align:center"><p>100</p></td>
-</tr>
-<tr class="row-odd"><td class="text-align:center"><p><span id="id8">[<a class="reference internal" href="markdown.html#id9">Steingroever <em>et al.</em>, 2011</a>]</span></p></td>
-<td class="text-align:center"><p>70</p></td>
-<td class="text-align:center"><p>100</p></td>
-</tr>
-<tr class="row-even"><td class="text-align:center"><p><span id="id9">[<a class="reference internal" href="markdown.html#id10">Steingroever <em>et al.</em>, 2011</a>]</span></p></td>
-<td class="text-align:center"><p>57</p></td>
-<td class="text-align:center"><p>150</p></td>
-</tr>
-<tr class="row-odd"><td class="text-align:center"><p><span id="id10">[<a class="reference internal" href="markdown.html#id11">Wetzels <em>et al.</em>, 2010</a>]</span></p></td>
-<td class="text-align:center"><p>41</p></td>
-<td class="text-align:center"><p>150</p></td>
-</tr>
-<tr class="row-even"><td class="text-align:center"><p><span id="id11">[<a class="reference internal" href="markdown.html#id12">Wood <em>et al.</em>, 2005</a>]</span></p></td>
-<td class="text-align:center"><p>153</p></td>
-<td class="text-align:center"><p>100</p></td>
-</tr>
-<tr class="row-odd"><td class="text-align:center"><p><span id="id12">[<a class="reference internal" href="markdown.html#id13">Worthy <em>et al.</em>, 2013</a>]</span></p></td>
-<td class="text-align:center"><p>35</p></td>
-<td class="text-align:center"><p>100</p></td>
-</tr>
-</tbody>
-</table>
-<div class="section" id="quality-control">
-<h3>Quality Control<a class="headerlink" href="#quality-control" title="Permalink to this headline">¶</a></h3>
-<p>All studies were administered through a computerized version of the IGT to ensure quality <span id="id13">[<a class="reference internal" href="markdown.html#id3">Steingroever <em>et al.</em>, 2015</a>]</span>.</p>
-</div>
-</div>
-<div class="toctree-wrapper compound">
+  <div class="section" id="conclusion">
+<h1>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h1>
+<p>In this Jupyter boook, we investigated employing the K-Means clustering algorithm on a dataset consisting of the results of 617 healthy participants on the <strong>Iowa Gambling Task</strong>. We performed our investigation under the hypothesis that participant’s show little to no irregularities in the data because of their healthy nature. This dataset serves as a <em>super control group</em> that can be used to quantify the the ability of other participants who may be suffering from neurological conditions, whether they be hereditary or self-inflicted from substance abuse. There are various studies <span id="id1">[<a class="reference internal" href="markdown.html#id4">Fridberg <em>et al.</em>, 2010</a>, <a class="reference internal" href="markdown.html#id5">Horstmann <em>et al.</em>, 2012</a>, <a class="reference internal" href="markdown.html#id6">Kjome <em>et al.</em>, 2010</a>, <a class="reference internal" href="markdown.html#id3">Steingroever <em>et al.</em>, 2015</a>]</span> that have already made use of this dataset as a control. For that reason, it is important to verify the integrity of this data.</p>
+<p>In this book, we were able to:</p>
+<ol class="simple">
+<li><p>Perform data cleaning and data wrangling tasks to ensure that results from different studies were siloed and were not aggregated together. In order to infer conclusions from the data, it is paramount that our features are rich in information. We performed feature engineering on our data to allow us to measure a participant’s progress throughout the game, as well as their ability to learn from the feedback they received at every round.</p></li>
+<li><p>In our analysis, we were able to confirm the hypothesis that participants partaking in any of the individual surveys were able to meet the expectations set for a typical healthy person performing the IGT.</p></li>
+<li><p>We performed a federated learning approach to clustering which saw us achieve different end clusters to the centralised approach.</p></li>
+</ol>
+<div class="section" id="future-work">
+<h2>Future Work<a class="headerlink" href="#future-work" title="Permalink to this headline">¶</a></h2>
+<p>Currently, there are many contradicting studies regarding the performance of substance abusers and participants with neurological dissabilities on the IGT. Our particular study would greatly benefit from the inclusion of users who fall into one of the aforementioned sub-groups. We would expect that the K-Means algorithm would perform well when clustering unhealthy vs healthy participants. Lastly, we would like the study the impact of different playing conditions (number of turns and payoff scheme used) on participant’s likelihood to make good choices and retain sensitivity to long term effects.</p>
 </div>
 </div>
 
@@ -354,11 +271,20 @@
 
 <div class='prev-next-bottom'>
     
+    <div id="prev">
+        <a class="left-prev" href="federated_clustering.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Federated Clustering Approach (10% Intervals)</p>
+            </div>
+        </a>
+    </div>
      <div id="next">
-        <a class="right-next" href="data_prep.html" title="next page">
+        <a class="right-next" href="bibliography.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Data Cleaning</p>
+                <p class="prevnext-title">Bibliography</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>
