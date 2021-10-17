@@ -1,0 +1,84 @@
+Traceback (most recent call last):
+  File "C:\Users\seanc\AppData\Roaming\Python\Python38\site-packages\jupyter_cache\executors\utils.py", line 51, in single_nb_execution
+    executenb(
+  File "C:\Users\seanc\AppData\Roaming\Python\Python38\site-packages\nbclient\client.py", line 1117, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "C:\Users\seanc\AppData\Roaming\Python\Python38\site-packages\nbclient\util.py", line 78, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "C:\Users\seanc\AppData\Roaming\Python\Python38\site-packages\nbclient\util.py", line 57, in just_run
+    return loop.run_until_complete(coro)
+  File "c:\program files\python38\lib\asyncio\base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "C:\Users\seanc\AppData\Roaming\Python\Python38\site-packages\nbclient\client.py", line 558, in async_execute
+    await self.async_execute_cell(
+  File "C:\Users\seanc\AppData\Roaming\Python\Python38\site-packages\nbclient\client.py", line 862, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "C:\Users\seanc\AppData\Roaming\Python\Python38\site-packages\nbclient\client.py", line 765, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import seaborn as sns
+sns.set(style='darkgrid')
+
+cluster_order = [3, 4, 4, 3, 3, 3, 3, 3, 3, 3]
+labels, centroids=[], pd.DataFrame()
+positions = [[0,0],[0,1],
+             [1,0],[1,1],
+             [2,0],[2,1],
+             [3,0],[3,1],
+             [4,0],[4,1]]
+             
+fig, axs = plt.subplots(5,2,figsize=(15,30))
+
+#Paramater i accesses the cluster_order list and the positions list
+i =0
+for study in finished_sets:
+    
+    X = study.iloc[:,:2]
+    
+    kmeans = KMeans(n_clusters=cluster_order[i], random_state=10).fit(X)
+    
+    #Calculating Labels
+    label = kmeans.labels_
+    labels.append(label)
+    
+    #Adding labels to our study dataframes
+    study["Cluster"]=label
+
+    #Calculating Centroids
+    centroid = pd.DataFrame(data=kmeans.cluster_centers_, columns=["Centroid PC 1", "Centroid PC 2"])
+    centroid["Study"]=study.Study.unique()[0]
+    centroids=pd.concat([centroids, centroid], axis=0)
+    
+    #Associating points with centroid
+    study["Centroid X"]=centroid.loc
+    
+    for lbl in np.unique(label):
+        
+        #Plotting data
+        sns.scatterplot(x='PC 1', y='PC 2', data=X.iloc[:,:2][label==lbl], ax=axs[positions[i][0],positions[i][1]])
+        axs[positions[i][0],positions[i][1]].set_title(f"Clustering of {study.Study.unique()[0]}")
+    
+    #Plotting centroids
+    sns.scatterplot(x='Centroid PC 1', y='Centroid PC 2', data=centroid, ax=axs[positions[i][0],positions[i][1]],
+                    marker="+", s=200, color=".05", alpha=1)
+
+    i+=1
+
+#Fixing centroid index
+centroids.reset_index(inplace=True, drop=True)
+plt.show()
+------------------
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+[1;32m~\AppData\Local\Temp/ipykernel_16672/2759545651.py[0m in [0;36m<module>[1;34m[0m
+[1;32m----> 1[1;33m [1;32mimport[0m [0mseaborn[0m [1;32mas[0m [0msns[0m[1;33m[0m[1;33m[0m[0m
+[0m[0;32m      2[0m [0msns[0m[1;33m.[0m[0mset[0m[1;33m([0m[0mstyle[0m[1;33m=[0m[1;34m'darkgrid'[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+[0;32m      3[0m [1;33m[0m[0m
+[0;32m      4[0m [0mcluster_order[0m [1;33m=[0m [1;33m[[0m[1;36m3[0m[1;33m,[0m [1;36m4[0m[1;33m,[0m [1;36m4[0m[1;33m,[0m [1;36m3[0m[1;33m,[0m [1;36m3[0m[1;33m,[0m [1;36m3[0m[1;33m,[0m [1;36m3[0m[1;33m,[0m [1;36m3[0m[1;33m,[0m [1;36m3[0m[1;33m,[0m [1;36m3[0m[1;33m][0m[1;33m[0m[1;33m[0m[0m
+[0;32m      5[0m [0mlabels[0m[1;33m,[0m [0mcentroids[0m[1;33m=[0m[1;33m[[0m[1;33m][0m[1;33m,[0m [0mpd[0m[1;33m.[0m[0mDataFrame[0m[1;33m([0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+
+[1;31mModuleNotFoundError[0m: No module named 'seaborn'
+ModuleNotFoundError: No module named 'seaborn'
+

@@ -18,9 +18,7 @@
 # 5. Comparison of All Clusters
 #     * Boxplot
 # ---
-# In our next Notebook, we will attempt to employ a **Federated Learning** (FL) approach to clustering. FL is a deep-learning technique not usually associated with clustering. However, we will attempt to use some of the basic principles of FL when clustering.
 # 
-# **It's time to focus on this Notebook however, so let's begin with the setup:**
 
 # # Initial Setup
 
@@ -285,7 +283,7 @@ plt.show()
 # 
 # As stated previously, the studies employed **various payoff schemes**. This means that harsher penalties and more lucrative rewards were available in some studies but **not in others**. This has an effect on the total amount of profit or loss a participant can make during the game.
 # 
-# We can see that the clusters do a reasonably good job dividing the data. However, some clusters seem less reasonable, particularly the **yellow, blue, and red clusters**. Later on we will be performing a **federated cluster analysis** meaning studies will be clustered independently of each other. This should result in more reasonable clusters.
+# We can see that the clusters do a reasonably good job dividing the data. However, some clusters seem less reasonable, particularly the **yellow, blue, and red clusters**.
 
 # # Comparison Between Opposite Groups
 # 
@@ -493,4 +491,4 @@ plt.show()
 # 
 # This is the end of this Jupyter Notebook. Here we clustered our data by Net Earnings and Net Losses irrespective of study conditions such as **reward scheme** and **number of attempts**. We were able to see a linear relationship in the data which told us that in most cases, as a participant earns more reward, they consequently have more loses. This is related to participants deck choice. Users who favoured Deck 'B' such as the dark blue cluster received greater rewards but endured harsher penalties resulting in a net loss over 10 turns. We found that the data closely resembles a **normal distribution** but does contain some **outliers** with large earnings or losses.
 # 
-# From viewing the cluster diagram, we understand that there are **two appararent lines** visible in the graph. This could indicate two prominent and contrasting testing conditions. This will be investigated further in the next Notebook. We will employ a *federated clustering approach*. In this approach, data is considered private and cannot be merged together. We will cluster each dataset individually, and then attempt to recalculate the k-means based on the original k-means of the individual studies.
+# From viewing the cluster diagram, we understand that there are **two appararent lines** visible in the graph. This could be indicative of fundamental differences between two portions of the data. This is likely a consequence of different amounts of allowed attempts, as well as different marking schemes. In our next notebook, we will focus on the **cumulative earnings and losses** of participants. This will be a better measure of a participant's ability to learn from feedback. Following on from that notebook, we will perform a **Federated Learning Approach** on the same data. We will compare the final position of cluster centroids, the total amount of inertia, and the distribution of data points amongst clusters.

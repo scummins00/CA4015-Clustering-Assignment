@@ -74,18 +74,9 @@ net_rolling_150=full_wins_150 + full_losses_150.values
 net_sets.append(net_rolling_150)
 
 
-# In[64]:
-
-
-net_rolling_100
-
-
 # In[4]:
 
 
-'''
-for now we do not need this block
-'''
 #Normalising table columns
 for s in net_sets:
     new_columns=["10%", "20%", "30%", "40%", "50%","60%", "70%", "80%", "90%", "100%"]
@@ -115,7 +106,7 @@ net_set = pd.concat(net_sets, axis=0)
 #Instantiate our scaler
 min_max_scaler = preprocessing.MinMaxScaler()
 
-#Normalize our datasets
+#Normalize our dataset
 norm_net_set=pd.DataFrame(min_max_scaler.fit_transform(net_set), columns=net_set.columns)
 
 
@@ -167,7 +158,11 @@ print ("Cumulative Prop. Variance Explained: ", out_sum)
 # We must now decide on a suitable amount of clusters for our algorithm. Two largely used methods for discovering the value of K are: $(a)$ *The Elbow Method*, and $(b)$ *The Silhouette Method*.
 # 
 # ### $(a)$ The Elbow Method
-# Inelegantly named the **Elbow Method**, it is the oldest method for determining the correct value of K. It is a visual method that focuses on displaying the error cost associated with varying amounts of clusters. Visually, the total amount of error will fall at each increment of total number of clusters before reaching a point where it plateaus. This point is known as the elbow point. The loss in error beyond this point is not considerable enough to warrant the use of extra clusters {cite}`Kodinariya2013`.
+# Inelegantly named the **Elbow Method**, it is the oldest method for determining the correct value of K. It is a visual method that focuses on displaying the error cost associated with varying amounts of clusters. The error is known as **the Sum of the Squared Error** (SSE). Visually, the total amount of error will fall at each increment of total number of clusters before reaching a point where it plateaus. This point is known as the elbow point. The loss in error beyond this point is not considerable enough to warrant the use of extra clusters {cite}`Kodinariya2013`. The algorithm for calculating the loss function is as follows:
+# * where $k$ is the number of clusters
+# * $n$ is the number of points in cluster $j$
+# * $c$ is the centroid for cluster $j$
+# $$SSE = \sum_{j=1}^k\sum_{i=1}^n{(y^{\mathrm{(j)}}_{i} - c_{j})^2}$$
 # 
 # **Note**: An error I made in the previous notebook was not 'seeding' my k-means algorithm. Because of this, on future runs of the same notebook, the algorithm will produce a different output. In the below example, we will use a seed (`random_state`) of 10.
 
@@ -212,7 +207,7 @@ plt.show()
 #Defining the range of clusters
 range_n_clusters = [2, 3, 4, 5]
 
-#Letting PC1 = X
+#Letting PC1 & PC2 = X
 X = pca_df_norm_net_set.iloc[:,0:2]
 
 #Defining subplots
@@ -314,35 +309,38 @@ studies = pd.concat([full_wins_95.iloc[:,-1:],full_wins_100.iloc[:,-1:],full_win
 pc1_pc2_with_studies = pd.concat([pca_df_norm_net_set.iloc[:,0:2], studies], axis=1)
 
 
-# In[140]:
+# In[197]:
 
 
 import seaborn as sns
+sns.set(style='darkgrid')
 
 kmeans = KMeans(n_clusters=4, random_state=10).fit(pc1_pc2_with_studies.iloc[:,:2])
 pc1_pc2_with_studies["Cluster"] = kmeans.labels_ + 1
-fig, axs = plt.subplots(1,2,figsize=(20,10), sharey=True)
+fig, axs = plt.subplots(1,2,figsize=(20,10))
+
+#Printing inertia
+print(f'The total inertia (SSE) is: {kmeans.inertia_:.2f}')
 
 #Setting titles
 axs[0].set_title("Visualising Spread of Individual Studies")
 axs[1].set_title("Visualising Clusters")
+
+#Plotting points
 sns.scatterplot(x='PC 1', y='PC 2', data=pc1_pc2_with_studies, hue='Study', ax=axs[0])
 sns.scatterplot(x='PC 1', y='PC 2', data=pc1_pc2_with_studies, hue='Cluster', ax=axs[1])
+
+#Setting centroids for cluster graph
+sns.scatterplot(x='x', y='y', data=centers, ax=axs[1], marker="+", s=100, color=".05", alpha=1)
 plt.show()
 
 
 # ### Cluster Analysis
 # It is interesting to see that visually, there seems to be more data points from particular studies included in certain clusters. For example, viewing cluster 1, we can see that the majority of the datapoints consist of subjects from the {cite}`Wood2005` study. Again, it would have been ideal to be able to compare these graphs with the inclusion of participants outside of the control group. Unfortunately, due to time constraints, I will not be performing this research as part of this assignment.
 # 
-# However, something we can do instead is measure the proportions of each cluster made up of the studies. Perhaps we will prove that cluster 1 is infact majorly consisting of participants from the {cite}`Wood2005` study. In our next notebook we will before a **Federated Learning** approach on the same data. We can conclude by comparing the proprtions of the clusters. As the data is a control group with even distribution, we would expect the proportions of the federated approach to be more evenly spread.
+# However, something we can do instead is measure the proportions of each cluster made up of the studies. Perhaps we will prove that cluster 1 is infact majorly consisting of participants from the {cite}`Wood2005` study. In our next notebook we will before a **Federated Learning** approach on the same data. We can conclude by comparing the proprtions of the clusters. As the data is a control group with even distribution, possibly a federated approach will result in the data points being more evenly spread amongst clusters. We will also compare the SSE of the two methods.
 # 
 # To do this, we must convert our Study column values into numerical values. This is called **Encoding**.
-
-# In[141]:
-
-
-pc1_pc2_with_studies.iloc[:,2:].groupby("Cluster").sum()
-
 
 # In[142]:
 
@@ -357,10 +355,10 @@ le.fit(pc1_pc2_with_studies.Study.unique())
 pc1_pc2_with_studies["Count"]=1
 
 
-# In[144]:
+# In[193]:
 
 
-pc1_pc2_with_studies[["Cluster", "Study", "Count"]].groupby(["Cluster","Study"]).sum()
+pc1_pc2_with_studies[["Cluster", "Study", "Count"]].groupby(["Study", "Cluster"]).sum()
 
 
-# We can see from the above table that Cluster 1 does infact contain a large amount of subjects from the {cite}`Wood2005`. It will be interesting to see if the Federated approach yields. different results.
+# We can see from the above table that Cluster 1 does infact contain a large amount of subjects from the {cite}`Wood2005`. In a similar fashion, cluster 2 holds a majority of the {cite}`hortsmanm2012` data points. It will be interesting to see if the Federated approach yields different results.

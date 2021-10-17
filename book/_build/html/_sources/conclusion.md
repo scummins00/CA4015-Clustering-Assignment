@@ -1,0 +1,11 @@
+# Conclusion
+
+In this Jupyter boook, we investigated employing the K-Means clustering algorithm on a dataset consisting of the results of 617 healthy participants on the **Iowa Gambling Task**. We performed our investigation under the hypothesis that participant's show little to no irregularities in the data because of their healthy nature. This dataset serves as a *super control group* that can be used to quantify the the ability of other participants who may be suffering from neurological conditions, whether they be hereditary or self-inflicted from substance abuse. There are various studies {cite}`Steingroever2015,FRIDBERG201028,hortsmanm2012,KJOME2010299` that have already made use of this dataset as a control. For that reason, it is important to verify the integrity of this data.
+
+In this book, we were able to:
+1. Perform data cleaning and data wrangling tasks to ensure that results from different studies were siloed and were not aggregated together. In order to infer conclusions from the data, it is paramount that our features are rich in information. We performed feature engineering on our data to allow us to measure a participant's progress throughout the game, as well as their ability to learn from the feedback they received at every round.
+2. In our analysis, we were able to confirm the hypothesis that participants partaking in any of the individual surveys were able to meet the expectations set for a typical healthy person performing the IGT.
+3. We performed a federated learning approach to clustering which saw us achieve different end clusters to the centralised approach.
+
+## Future Work
+Currently, there are many contradicting studies regarding the performance of substance abusers and participants with neurological dissabilities on the IGT. Our particular study would greatly benefit from the inclusion of users who fall into one of the aforementioned sub-groups. We would expect that the K-Means algorithm would perform well when clustering unhealthy vs healthy participants. Lastly, we would like the study the impact of different playing conditions (number of turns and payoff scheme used) on participant's likelihood to make good choices and retain sensitivity to long term effects.   
