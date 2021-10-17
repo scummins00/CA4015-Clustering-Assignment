@@ -1,6 +1,6 @@
 # CA4015-Clustering-Assignment
 This repository is to store the Jupyter Book and accompanying files for the Clustering Assignment as part of CA4015, Advanced Machine Learning.
-Find the repository [here](https://github.com/scummins00/CA4015-Clustering-Assignment)
+Find the repository [here](https://github.com/scummins00/CA4015-Clustering-Assignment).
 
 ## Required Packages
 Please find all the packages required to run this book as intended in the `requirements.txt` file.
