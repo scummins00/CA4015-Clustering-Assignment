@@ -4,7 +4,7 @@ Find the repository [here](https://github.com/scummins00/CA4015-Clustering-Assig
 
 ## Jupyter Book
 This project is made accessible through Jupyter Book. Access it [here](https://scummins00.github.io/CA4015-Clustering-Assignment/intro.html).
-If you're having difficulty using Jupyter Book, please refer to the [Building the Jupyter Book](instruction) section below.
+If you're having difficulty using Jupyter Book, please refer to the [Building the Jupyter Book](#instruction) section below.
 ## Required Packages
 Please find all the packages required to run this book as intended in the `requirements.txt` file.
 
